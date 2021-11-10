@@ -10,10 +10,15 @@ public class Game {
 		return instance; }
 	
 	private Game() {
-		nplayer = 1;
 	}
 	
-	public int NPlayer() {
+	public int getNP() {
 		return nplayer;
+	}
+	
+	public boolean editNP(int np) {
+		nplayer = np;
+		if(nplayer==np)return true; 
+		else return false;
 	}
 }
