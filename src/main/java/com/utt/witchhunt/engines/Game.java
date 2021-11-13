@@ -20,17 +20,17 @@ public class Game {
 		cardslist = Cards.getCards();
 	}
 	
-	public int getNP() {
+	public static int getNP() {
 		return nplayer;
 	}
 	
-	public boolean editNP(int np) {
+	public static boolean editNP(int np) {
 		nplayer = np;
 		if(nplayer==np)return true; 
 		else return false;
 	}
 	
-	public void createPlayers() {
+	public static void createPlayers() {
 		for(int i=0; i < nplayer; i++) {
 			
 	        //Ici on créer le joueur
@@ -43,7 +43,15 @@ public class Game {
 		}
 	}
 	
-	public void distributeCards() {
+	public static List<Player> getplayerlist(){
+		return playerlist;
+	}
+	
+	public static List<Cards> getdiscardedcardlist(){
+		return cardslist;
+	}
+	
+	public static void distributeCards() {
 		Random rand = new Random();
 		int nc = 0;
 		

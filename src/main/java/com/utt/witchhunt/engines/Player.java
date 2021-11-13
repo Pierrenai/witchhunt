@@ -27,5 +27,9 @@ public class Player {
 	public String toString() {
 		return name;
 	}
+	
+	public void etreAccuse(Player p) {
+		System.out.println(this + " est accusé par " + p);
+	}
 
 }
