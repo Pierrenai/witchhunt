@@ -1,5 +1,7 @@
 package com.utt.witchhunt.engines.effects;
 
-public class ChooseNextPlayer {
+import com.utt.witchhunt.engines.Effect;
+
+public class ChooseNextPlayer extends Effect{
 
 }
