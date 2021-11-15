@@ -3,11 +3,13 @@ package com.utt.witchhunt.engines;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
 	private static int nplayer = 0;
 	private static List<Player> playerlist = new ArrayList<Player>();
 	private static List<Cards> cardslist = new ArrayList<Cards>();
+	private static Player nextPlayer = null;
 	
 	private final static Game instance = new Game();
 	
@@ -31,21 +33,25 @@ public class Game {
 	}
 	
 	public static void createPlayers() {
-		for(int i=0; i < nplayer; i++) {
+		if(playerlist.isEmpty()) {
+			for(int i=0; i < nplayer; i++) {
+				
+		        //Ici on créer le joueur
+				Player player = new Player("Player n" + i); 
+				playerlist.add(player);
+				
+				System.out.println(player.getName() + " successfully added.");
+				
 			
-	        //Ici on créer le joueur
-			Player player = new Player("Player n" + i); 
-			playerlist.add(player);
-			
-			System.out.println(player.getName() + " successfully added.");
-			
-		
+			}
 		}
 	}
 	
+	/*
 	public static List<Player> getplayerlist(){
 		return playerlist;
 	}
+	*/
 	
 	public static List<Cards> getdiscardedcardlist(){
 		return cardslist;
@@ -82,4 +88,69 @@ public class Game {
 		System.out.println("La défausse possèdent " +  cardslist);
 		
 	}
+	
+	static void setnextPlayer(Player p) {
+		nextPlayer = p;
+	}
+	
+	public static void nextTurn() {
+		//Si le premier joueur n'est pas défini c'est le premier joueur créer qui commence
+		if(nextPlayer == null) {
+			nextPlayer = playerlist.get(0);
+		}
+		
+		//Ici c'est autour de next player joueur de jouer
+		System.out.println("C'est le tour de " + nextPlayer);
+		System.out.println("Possible command : accuse | ");
+		
+		Scanner sc= new Scanner(System.in);
+		boolean command = false;
+		do{
+			String nexti = sc.nextLine();
+			//Ici si on met accuse dans la command le joueur accuse
+			if(nexti.matches("accuse")) {
+				command = true;
+				accuserpar(nextPlayer);
+			} 
+			else {
+				System.out.println("ERROR : not recognize");
+			}
+		}while(!command);
+	}
+	
+	public static void nextRound() {
+		//On relance un round ici
+	}
+	
+	private static void accuserpar(Player p) {
+		Scanner sc= new Scanner(System.in);
+		
+		for(int i=0; i < playerlist.size(); i++) {
+			Player player = playerlist.get(i);
+			if(player!=nextPlayer) {
+				System.out.println(i + " : " + player + " reveal : " + player.isReveal());
+			}
+		}
+		
+		boolean command = false;
+		do{
+			int nexti = sc.nextInt();
+			if(nexti <= playerlist.size()) {
+				Player player = playerlist.get(nexti);
+				//On vérifie si le joueur n'est pas déjà révélé
+				if(player.isReveal()) {
+					System.out.println(player + "is already reveal");
+					System.out.println("Choose an other player");
+				} else {
+					player.etreAccuse(p);
+					command = true;
+				}
+			} 
+			else {
+				System.out.println("ERROR : select an existing player");
+			}
+		}while(!command);
+	}
+	
+	
 }
