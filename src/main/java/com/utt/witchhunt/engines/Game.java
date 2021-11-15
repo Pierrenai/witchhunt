@@ -18,7 +18,7 @@ public class Game {
 		return instance; }
 	
 	private Game() {
-		Cards.createdCards();
+		Cards.createCards();
 		cardslist = Cards.getCards();
 	}
 	
@@ -89,8 +89,10 @@ public class Game {
 		
 	}
 	
-	static void setnextPlayer(Player p) {
+	public static void setnextPlayer(Player p) {
 		nextPlayer = p;
+		
+		nextTurn();
 	}
 	
 	public static void nextTurn() {
@@ -101,7 +103,7 @@ public class Game {
 		
 		//Ici c'est autour de next player joueur de jouer
 		System.out.println("C'est le tour de " + nextPlayer);
-		System.out.println("Possible command : accuse | ");
+		System.out.println("Command : accuse | play");
 		
 		Scanner sc= new Scanner(System.in);
 		boolean command = false;
@@ -109,8 +111,15 @@ public class Game {
 			String nexti = sc.nextLine();
 			//Ici si on met accuse dans la command le joueur accuse
 			if(nexti.matches("accuse")) {
-				command = true;
 				accuserpar(nextPlayer);
+				
+				command = true;
+			} 
+			//Ici command pour jouer une carte
+			if(nexti.matches("play")) {
+				playhuntcard(nextPlayer);
+				
+				command = true;
 			} 
 			else {
 				System.out.println("ERROR : not recognize");
@@ -119,10 +128,24 @@ public class Game {
 	}
 	
 	public static void nextRound() {
-		//On relance un round ici
+		//On distribu les cartes au début du round
+		distributeCards();
+		//Debut tour
+		nextTurn();
 	}
 	
 	private static void accuserpar(Player p) {
+		Player player = selectplayer(true);
+				
+		player.etreAccuse(p);
+	}
+	
+	private static void playhuntcard(Player p) {
+		Cards card = selectHuntcard(p, true);
+	}
+	
+	//Si reveal = true il ne faut pas que le joueur soit reveler pour que ça marche
+	private static Player selectplayer(boolean reveal) {
 		Scanner sc= new Scanner(System.in);
 		
 		for(int i=0; i < playerlist.size(); i++) {
@@ -137,20 +160,65 @@ public class Game {
 			int nexti = sc.nextInt();
 			if(nexti <= playerlist.size()) {
 				Player player = playerlist.get(nexti);
-				//On vérifie si le joueur n'est pas déjà révélé
-				if(player.isReveal()) {
+				
+				//On vérifie si on a besoin que le joueur ne soit pas révélé et si il est reveal
+				if(reveal && player.isReveal()) {
 					System.out.println(player + "is already reveal");
 					System.out.println("Choose an other player");
 				} else {
-					player.etreAccuse(p);
 					command = true;
+					
+					return player;
 				}
 			} 
 			else {
 				System.out.println("ERROR : select an existing player");
 			}
 		}while(!command);
+		
+		return null;
 	}
+	
+	//Si needplayer = true il ne faut pas qu'un joueur soit selectionné
+		private static Cards selectHuntcard (Player p, boolean needplayer) {
+			Scanner sc= new Scanner(System.in);
+			
+			List<Cards> playercards = p.getCards();
+			
+			for(int i=0; i < playercards.size(); i++) {
+				Cards card = playercards.get(i);
+				System.out.println(i + " : " + card);
+			}
+			
+					
+			boolean command = false;
+			do{
+				int nexti = sc.nextInt();
+				if(nexti <= playercards.size()) {
+					Cards card = playercards.get(nexti);
+					//On vérifie si la carte n'est pas déjà révélé
+					if(card.isReveal()) {
+						System.out.println(card + "is already reveal");
+						System.out.println("Choose an other card");
+					} else {
+						System.out.println(p + " played " + card);
+						if(card.isPlayerRequired()) {
+							Player player = selectplayer(false);
+							card.executeHuntSide(player);
+						} else {
+							card.executeHuntSide();
+						}
+						
+						command = true;
+					}
+				} 
+				else {
+					System.out.println("ERROR : select an existing cards");
+				}
+			}while(!command);
+			
+			return null;
+		}
 	
 	
 }

@@ -47,12 +47,6 @@ public class Main {
 	    
 	    //Ici on commence un round
 	    G.nextRound();
-	    
-	    //Ici on distribu les cartes
-	    //G.distributeCards();
-	    
-	    //Ici on commence un tour
-	    G.nextTurn();
 		
 	  }
 }

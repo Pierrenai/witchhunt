@@ -59,8 +59,6 @@ public class Player {
 		}while(!command);
 		
 		Game.setnextPlayer(this);
-		
-		Game.nextTurn();
 	}
 	
 	public boolean isReveal() {

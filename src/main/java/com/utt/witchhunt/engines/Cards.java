@@ -3,9 +3,12 @@ package com.utt.witchhunt.engines;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.utt.witchhunt.engines.effects.ChooseNextPlayer;
+
 public class Cards {
-	//private static Cards[] cardslist = new Cards[12];
 	private static List<Cards> cardslist = new ArrayList<Cards>();
+	private boolean reveal = false;
+	private boolean playerRequired = true;
 	
 	
 	private Effect WitchSide, HuntSide;
@@ -17,9 +20,9 @@ public class Cards {
 		this.HuntSide = HS;
 	}
 	
-	public static void createdCards() {
-		Effect w = new Effect();
-		Effect h = new Effect();
+	public static void createCards() {
+		Effect w = new ChooseNextPlayer();
+		Effect h = new ChooseNextPlayer();
 		//Angry Mob
 		cardslist.add(new Cards("Angry Mob", w, h));
 		
@@ -65,5 +68,28 @@ public class Cards {
 	public String toString() {
 		return name;
 	}
+	
+	public boolean isReveal() {
+		return reveal;
+	}
+	
+	public boolean isPlayerRequired() {
+		return playerRequired;
+	}
+	
+	public void executeHuntSide() {
+		this.HuntSide.execute();
+	}
+	
+	public void executeHuntSide(Player p) {
+		this.HuntSide.execute(p);
+	}
 
+	public void executeWitchSide() {
+		this.WitchSide.execute();
+	}
+	
+	public void executeWitchSide(Player p) {
+		this.WitchSide.execute(p);
+	}
 }
