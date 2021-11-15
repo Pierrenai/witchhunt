@@ -14,17 +14,14 @@ public class Cards {
 	private String desc;
 	
 	
-	private Effect WitchSide, HuntSide;
+	private List<Effect> WitchSide, HuntSide;
 	private String name;
 	
-	private Cards(String n, Effect WS, Effect HS) {
+	private Cards(String n, List<Effect> WS, List<Effect> HS, String Desc) {
 		this.name = n;
 		this.WitchSide = WS;
 		this.HuntSide = HS;
-	}
-	
-	public void setdesc(String d) {
-		this.desc = d;
+		this.desc = Desc;
 	}
 	
 	public String getdesc() {
@@ -33,76 +30,136 @@ public class Cards {
 	
 	public static void createCards() {
 		//Angry Mob
-		Effect AngryW = new TakeNextTurn();
-		Effect AngryH = new RevealIdentity();
+		List<Effect> AngryW = new ArrayList<Effect>();
+		AngryW.add(new TakeNextTurn());
+		
+		List<Effect> AngryH = new ArrayList<Effect>();
+		AngryW.add(new RevealIdentity());
+		
 		String AngryDesc = "W: Take next turn | H(Only playable if you have been revealed as a Villager): Reveal another player's identity (W: +2pts + Take next Turn | H: -2pts + They take next turn)";
-		cardslist.add(new Cards("Angry Mob", AngryW, AngryH));
+		
+		cardslist.add(new Cards("Angry Mob", AngryW, AngryH, AngryDesc));
 		
 		//The Inquisition
-		Effect InquisitionW = new TakeNextTurn(); // + Discard
-		Effect InquisitionH = new ChooseNextPlayer(); // + LookPlayerIdentity
+		List<Effect> InquisitionW = new ArrayList<Effect>();
+		InquisitionW.add(new TakeNextTurn());
+		
+		List<Effect> InquisitionH = new ArrayList<Effect>();
+		InquisitionH.add(new RevealIdentity());
+		
 		String InquisitionDesc = "W: Discard a card from your hand + Take next turn | H(Only playable if you have been revealed as a Villager): Choose next player + Before their turn, secretly look at their identity";
-		cardslist.add(new Cards("The Inquisition", InquisitionW, InquisitionH));
+		
+		cardslist.add(new Cards("The Inquisition", InquisitionW, InquisitionH, InquisitionDesc));
 		
 		//Pointed Hat
-		Effect PointedW = new TakeNextTurn();
-		Effect PointedH = new ChooseNextPlayer();
+		List<Effect> PointedW = new ArrayList<Effect>();
+		PointedW.add(new TakeNextTurn());
+		
+		List<Effect> PointedH = new ArrayList<Effect>();
+		PointedH.add(new RevealIdentity());
+		
 		String PointedDesc = "W(Only playable if you have a revealed Rumour card): Take one of your own revealed Rumour cards into your hand + Take next turn | H(Only playable if you have a revealed Rumour card): Take one of your own revealed Rumour cards into your hand + Choose next player";
-		cardslist.add(new Cards("Pointed Hat", PointedW, PointedH));
+		
+		cardslist.add(new Cards("Pointed Hat", PointedW, PointedH, PointedDesc));
 		
 		//Hooked Nose
-		Effect HookedW = new ChooseNextPlayer();
-		Effect HookedH = new ChooseNextPlayer();
+		List<Effect> HookedW = new ArrayList<Effect>();
+		HookedW.add(new TakeNextTurn());
+		
+		List<Effect> HookedH = new ArrayList<Effect>();
+		HookedH.add(new RevealIdentity());
+
 		String HookednDesc = "W: Take one card from the hand of player who accused you + Take next turn | H: Choose next player + Before their turn, take a random card from thier hand and add it to your hand";
-		cardslist.add(new Cards("Hooked Nose", HookedW, HookedH));
+		
+		cardslist.add(new Cards("Hooked Nose", HookedW, HookedH, HookednDesc));
 		
 		//Broomstick while reveal, you cannot be chosen by the Angry Mob
-		Effect BrommstickW = new TakeNextTurn();
-		Effect BrommstickH = new ChooseNextPlayer();
+		List<Effect> BrommstickW = new ArrayList<Effect>();
+		BrommstickW.add(new TakeNextTurn());
+		
+		List<Effect> BrommstickH = new ArrayList<Effect>();
+		BrommstickH.add(new RevealIdentity());
+		
 		String BroomsticknDesc = "(While reveal, you cannot be chosen by the Angry Mob) | W: Take next turn | H: Choose next player";
-		cardslist.add(new Cards("Broomstick", BrommstickW, BrommstickH));
+		
+		cardslist.add(new Cards("Broomstick", BrommstickW, BrommstickH, BroomsticknDesc));
 		
 		//Wart while reveal, you cannot be chosen by the Ducking Stool
-		Effect WartW = new TakeNextTurn();
-		Effect WartH = new ChooseNextPlayer();
+		List<Effect> WartW = new ArrayList<Effect>();
+		WartW.add(new TakeNextTurn());
+		
+		List<Effect> WartH = new ArrayList<Effect>();
+		WartH.add(new RevealIdentity());
+		
 		String WartDesc = "(While reveal, you cannot be chosen by the Ducking Stool) | W: Take next turn | H: Choose next player";
-		cardslist.add(new Cards("Wart", WartW, WartH));
+		
+		cardslist.add(new Cards("Wart", WartW, WartH, WartDesc));
 		
 		//Ducking Stool
-		Effect DuckingW = new ChooseNextPlayer();
-		Effect DuckingH = new ChooseNextPlayer(); // Something
+		List<Effect> DuckingW = new ArrayList<Effect>();
+		DuckingW.add(new TakeNextTurn());
+		
+		List<Effect> DuckingH = new ArrayList<Effect>();
+		DuckingH.add(new RevealIdentity());
+
 		String DuckingDesc = "W: Choose next player | H: Choose a player. They must reveal their identity or discrad a card from thier hand (W: +1pts + You take next turn | H: -1pts + They take next turn | If they discard: They take next turn)";
-		cardslist.add(new Cards("Ducking Stool", DuckingW, DuckingH));
+		
+		cardslist.add(new Cards("Ducking Stool", DuckingW, DuckingH, DuckingDesc));
 		
 		//Cauldron
-		Effect CauldronW = new TakeNextTurn(); // + Something
-		Effect CauldronH = new RevealIdentity(); // + Something
-		String CauldronDesc = "W: Take next turn | H(Only playable if you have been revealed as a Villager): Reveal another player's identity (W: +2pts + Take next Turn | H: -2pts + They take next turn)";
-		cardslist.add(new Cards("Cauldron", CauldronW, CauldronH));
+		List<Effect> CauldronW = new ArrayList<Effect>();
+		CauldronW.add(new TakeNextTurn());
+		
+		List<Effect> CauldronH = new ArrayList<Effect>();
+		CauldronH.add(new RevealIdentity());
+		
+		String CauldronDesc = "W: The player who accused you discards a random card from their hand + Take next turn | H: Reveal your identity (W: Player to your left takes next turn | H: Choose next player)";
+		
+		cardslist.add(new Cards("Cauldron", CauldronW, CauldronH, CauldronDesc));
 		
 		//Evil Eye
-		Effect EvilW = new ChooseNextPlayer(); // + Something
-		Effect EvilH = new ChooseNextPlayer(); // + Something
-		String EvilDesc = "W: Take next turn | H(Only playable if you have been revealed as a Villager): Reveal another player's identity (W: +2pts + Take next Turn | H: -2pts + They take next turn)";
-		cardslist.add(new Cards("Evil Eye", EvilW, EvilH));
+		List<Effect> EvilW = new ArrayList<Effect>();
+		EvilW.add(new TakeNextTurn());
+		
+		List<Effect> EvilH = new ArrayList<Effect>();
+		EvilH.add(new RevealIdentity());
+
+		String EvilDesc = "W: Choose next player + On their turn they must accuse a player other than you, if possible | H: Choose next player + On their turn they must accuse a player other than you, if possible";
+		
+		cardslist.add(new Cards("Evil Eye", EvilW, EvilH, EvilDesc));
 		
 		//Toad
-		Effect ToadW = new TakeNextTurn();
-		Effect ToadH = new RevealIdentity(); // + Something
-		String ToadnDesc = "W: Take next turn | H(Only playable if you have been revealed as a Villager): Reveal another player's identity (W: +2pts + Take next Turn | H: -2pts + They take next turn)";
-		cardslist.add(new Cards("Toas", ToadW, ToadH));
+		List<Effect> ToadW = new ArrayList<Effect>();
+		ToadW.add(new TakeNextTurn());
+		
+		List<Effect> ToadH = new ArrayList<Effect>();
+		ToadH.add(new RevealIdentity());
+		
+		String ToadnDesc = "W: Take next turn | H: Reveal your identity (W: Player to your left takes next turn | H: Choose next player)";
+		
+		cardslist.add(new Cards("Toas", ToadW, ToadH, ToadnDesc));
 		
 		//Black Cat
-		Effect BlackW = new TakeNextTurn();
-		Effect BlackH = new TakeNextTurn(); // + Something
-		String BlackDesc = "W: Take next turn | H(Only playable if you have been revealed as a Villager): Reveal another player's identity (W: +2pts + Take next Turn | H: -2pts + They take next turn)";
-		cardslist.add(new Cards("Black Cat", BlackW, BlackH));
+		List<Effect> BlackW = new ArrayList<Effect>();
+		BlackW.add(new TakeNextTurn());
+		
+		List<Effect> BlackH = new ArrayList<Effect>();
+		BlackH.add(new RevealIdentity());
+		
+		String BlackDesc = "W: Take next turn | H: Add one discarded card to your hand, and then discard this card + Take next turn";
+		
+		cardslist.add(new Cards("Black Cat", BlackW, BlackH, BlackDesc));
 		
 		//Pet Newi
-		Effect NewiW = new TakeNextTurn();
-		Effect NewiH = new ChooseNextPlayer(); // + Something
-		String NewiDesc = "W: Take next turn | H(Only playable if you have been revealed as a Villager): Reveal another player's identity (W: +2pts + Take next Turn | H: -2pts + They take next turn)";
-		cardslist.add(new Cards("Pet Newi", NewiW, NewiH));
+		List<Effect> NewiW = new ArrayList<Effect>();
+		NewiW.add(new TakeNextTurn());
+		
+		List<Effect> NewiH = new ArrayList<Effect>();
+		NewiH.add(new RevealIdentity());
+
+		String NewiDesc = "W: Take next turn | H: Take a revealed Rumour card from any other player into your hand + Choose next player";
+		
+		cardslist.add(new Cards("Pet Newi", NewiW, NewiH, NewiDesc));
 	}
 	
 	public static List<Cards> getCards() {
@@ -122,6 +179,7 @@ public class Cards {
 		return playerRequired;
 	}
 	
+	/*
 	public void executeHuntSide() {
 		this.HuntSide.execute();
 	}
@@ -136,5 +194,5 @@ public class Cards {
 	
 	public void executeWitchSide(Player p) {
 		this.WitchSide.execute(p);
-	}
+	*/
 }

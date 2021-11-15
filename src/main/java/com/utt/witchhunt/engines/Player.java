@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Player {
 	private String name;
 	private boolean reveal = false;
-	private String identity = "Clow";
+	private String identity = "un bug";
 	private List<Cards> cards = new ArrayList<Cards>();
 
 	public Player(String n) {
@@ -63,6 +63,10 @@ public class Player {
 	
 	public boolean isReveal() {
 		return reveal;
+	}
+	
+	public void setIdentity(String i) {
+		this.identity = i;
 	}
 
 }

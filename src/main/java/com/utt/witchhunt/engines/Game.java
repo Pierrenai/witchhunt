@@ -47,12 +47,6 @@ public class Game {
 		}
 	}
 	
-	/*
-	public static List<Player> getplayerlist(){
-		return playerlist;
-	}
-	*/
-	
 	public static List<Cards> getdiscardedcardlist(){
 		return cardslist;
 	}
@@ -79,9 +73,6 @@ public class Game {
 		        
 		        player.addCard(randomElement);
 			}
-			
-			System.out.println(player + " possèdent " +  player.getCards());
-		
 		}
 		
 		//Ici je list les cartes de la défausse
@@ -96,6 +87,8 @@ public class Game {
 	}
 	
 	public static void nextTurn() {
+		clearScreen();
+		
 		//Si le premier joueur n'est pas défini c'est le premier joueur créer qui commence
 		if(nextPlayer == null) {
 			nextPlayer = playerlist.get(0);
@@ -130,6 +123,8 @@ public class Game {
 	public static void nextRound() {
 		//On distribu les cartes au début du round
 		distributeCards();
+		//Selection des rôles
+		selectidentities();		
 		//Debut tour
 		nextTurn();
 	}
@@ -180,45 +175,78 @@ public class Game {
 	}
 	
 	//Si needplayer = true il ne faut pas qu'un joueur soit selectionné
-		private static Cards selectHuntcard (Player p, boolean needplayer) {
-			Scanner sc= new Scanner(System.in);
-			
-			List<Cards> playercards = p.getCards();
-			
-			for(int i=0; i < playercards.size(); i++) {
-				Cards card = playercards.get(i);
-				System.out.println(i + " : " + card);
-			}
-			
+	private static Cards selectHuntcard (Player p, boolean needplayer) {
+		Scanner sc= new Scanner(System.in);
+		
+		List<Cards> playercards = p.getCards();
+		
+		for(int i=0; i < playercards.size(); i++) {
+			Cards card = playercards.get(i);
+			System.out.println(i + " : " + card);
+		}
+		
+				
+		boolean command = false;
+		do{
+			int nexti = sc.nextInt();
+			if(nexti <= playercards.size()) {
+				Cards card = playercards.get(nexti);
+				//On vérifie si la carte n'est pas déjà révélé
+				if(card.isReveal()) {
+					System.out.println(card + "is already reveal");
+					System.out.println("Choose an other card");
+				} else {
+					System.out.println(p + " played " + card);
+					if(card.isPlayerRequired()) {
+						Player player = selectplayer(false);
+						
+					} else {
+						
+					}
 					
+					command = true;
+				}
+			} 
+			else {
+				System.out.println("ERROR : select an existing cards");
+			}
+		}while(!command);
+		
+		return null;
+	}
+	
+	private static void selectidentities() {
+		Scanner sc= new Scanner(System.in);
+		
+		for(int i=0; i < playerlist.size(); i++) {
+			Player player = playerlist.get(i);
+			System.out.println(player + " a toi de choisir");
+			System.out.println("Tes cartes sont : " +  player.getCards());
+			System.out.println("Select between Witch : W or Hunt : H");
+			
 			boolean command = false;
 			do{
-				int nexti = sc.nextInt();
-				if(nexti <= playercards.size()) {
-					Cards card = playercards.get(nexti);
-					//On vérifie si la carte n'est pas déjà révélé
-					if(card.isReveal()) {
-						System.out.println(card + "is already reveal");
-						System.out.println("Choose an other card");
-					} else {
-						System.out.println(p + " played " + card);
-						if(card.isPlayerRequired()) {
-							Player player = selectplayer(false);
-							card.executeHuntSide(player);
-						} else {
-							card.executeHuntSide();
-						}
-						
-						command = true;
-					}
+				String nexti = sc.nextLine();
+				if(nexti.matches("W")) {
+					player.setIdentity("Witch");
+					
+					command = true;
 				} 
+				if(nexti.matches("H")) {
+					player.setIdentity("Hunt");
+					
+					command = true;
+				}
 				else {
-					System.out.println("ERROR : select an existing cards");
+					System.out.println("ERROR : select an existing identity");
 				}
 			}while(!command);
 			
-			return null;
+			clearScreen();
 		}
+	}
 	
-	
+	public static void clearScreen() {  
+		for (int i = 0; i < 50; ++i) System.out.println();
+	} 
 }
