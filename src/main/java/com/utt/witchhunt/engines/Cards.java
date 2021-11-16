@@ -72,6 +72,6 @@ public abstract class Cards {
 		return playerRequired;
 	}
 	
-	public abstract void WitchSide();
-	public abstract void HuntSide();
+	public abstract boolean WitchSide(Player caster, Player target);
+	public abstract boolean HuntSide(Player caster, Player target);
 }

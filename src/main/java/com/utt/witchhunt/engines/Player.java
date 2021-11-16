@@ -62,7 +62,7 @@ public class Player {
 			}
 		}while(!command);
 		
-		Game.setnextTurn(this);
+		Game.setnextPlayer(this);
 	}
 	
 	public boolean isReveal() {
@@ -71,6 +71,10 @@ public class Player {
 	
 	public void setIdentity(String i) {
 		this.identity = i;
+	}
+	
+	public String getIdentity() {
+		return this.identity;
 	}
 	
 	public void addPoints(int p) {
@@ -83,6 +87,11 @@ public class Player {
 	
 	public int getPoints() {
 		return this.pts;
+	}
+	
+	public void revealIdentity() {
+		this.reveal = true;
+		System.out.println(this + " est " + identity);
 	}
 
 

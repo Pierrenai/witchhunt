@@ -80,7 +80,7 @@ public class Game {
 		
 	}
 	
-	public static void setnextTurn(Player p) {
+	public static void setnextPlayer(Player p) {
 		nextPlayer = p;
 		
 		nextTurn();
@@ -228,7 +228,7 @@ public class Game {
 			Player player = playerlist.get(i);
 			System.out.println(player + " a toi de choisir");
 			System.out.println("Tes cartes sont : " +  player.getCards());
-			System.out.println("Select between Witch : W or Hunt : H");
+			System.out.println("Select between Witch : W or Villager : V");
 			
 			boolean command = false;
 			do{
@@ -238,8 +238,8 @@ public class Game {
 					
 					command = true;
 				} 
-				if(nexti.matches("H")) {
-					player.setIdentity("Hunt");
+				if(nexti.matches("V")) {
+					player.setIdentity("Villager");
 					
 					command = true;
 				}
