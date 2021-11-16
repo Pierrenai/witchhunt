@@ -7,7 +7,7 @@ import com.utt.witchhunt.engines.effects.ChooseNextPlayer;
 import com.utt.witchhunt.engines.effects.RevealIdentity;
 import com.utt.witchhunt.engines.effects.TakeNextTurn;
 
-public class Cards {
+public abstract class Cards {
 	private static List<Cards> cardslist = new ArrayList<Cards>();
 	private boolean reveal = false;
 	private boolean playerRequired = true;
@@ -29,6 +29,7 @@ public class Cards {
 	}
 	
 	public static void createCards() {
+		/*
 		//Angry Mob
 		List<Effect> AngryW = new ArrayList<Effect>();
 		AngryW.add(new TakeNextTurn());
@@ -160,6 +161,7 @@ public class Cards {
 		String NewiDesc = "W: Take next turn | H: Take a revealed Rumour card from any other player into your hand + Choose next player";
 		
 		cardslist.add(new Cards("Pet Newi", NewiW, NewiH, NewiDesc));
+		*/
 	}
 	
 	public static List<Cards> getCards() {

@@ -14,7 +14,7 @@ public class TakeNextTurn extends Effect {
 
 	@Override
 	public void execute(Player p) {
-		Game.setnextPlayer(p);
+		Game.setnextTurn(p);
 	}
 
 }

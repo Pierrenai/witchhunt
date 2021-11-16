@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Player {
 	private String name;
+	private int pts = 0;
 	private boolean reveal = false;
 	private String identity = "un bug";
 	private List<Cards> cards = new ArrayList<Cards>();
@@ -44,6 +45,9 @@ public class Player {
 			if(nexti.matches("Y")) {
 				reveal = true;
 				System.out.println(this + " est " + identity);
+				if(this.identity.matches("Witch")) {
+					p.addPoints(1);
+				}
 				
 				command = true;
 			}
@@ -58,7 +62,7 @@ public class Player {
 			}
 		}while(!command);
 		
-		Game.setnextPlayer(this);
+		Game.setnextTurn(this);
 	}
 	
 	public boolean isReveal() {
@@ -68,5 +72,18 @@ public class Player {
 	public void setIdentity(String i) {
 		this.identity = i;
 	}
+	
+	public void addPoints(int p) {
+		this.pts += p;
+	}
+	
+	public void removePoints(int p) {
+		this.pts -= p;
+	}
+	
+	public int getPoints() {
+		return this.pts;
+	}
+
 
 }

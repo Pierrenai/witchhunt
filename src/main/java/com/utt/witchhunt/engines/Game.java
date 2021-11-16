@@ -80,7 +80,7 @@ public class Game {
 		
 	}
 	
-	public static void setnextPlayer(Player p) {
+	public static void setnextTurn(Player p) {
 		nextPlayer = p;
 		
 		nextTurn();
@@ -124,7 +124,9 @@ public class Game {
 		//On distribu les cartes au début du round
 		distributeCards();
 		//Selection des rôles
-		selectidentities();		
+		selectidentities();	
+		//Ici on met les pts
+		checkPts();
 		//Debut tour
 		nextTurn();
 	}
@@ -248,5 +250,11 @@ public class Game {
 	
 	public static void clearScreen() {  
 		for (int i = 0; i < 50; ++i) System.out.println();
-	} 
+	}
+	
+	public static void checkPts() {
+		for(int i=0; i < playerlist.size(); i++) {
+			System.out.println(playerlist.get(i) + " a " + playerlist.get(i).getPoints() + " pts");
+		}
+	}
 }
