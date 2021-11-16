@@ -1,5 +1,19 @@
 package com.utt.witchhunt.cards;
 
-public class PetNewi {
+import com.utt.witchhunt.engines.Cards;
+
+public class PetNewi extends Cards {
+
+	@Override
+	public void WitchSide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void HuntSide() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

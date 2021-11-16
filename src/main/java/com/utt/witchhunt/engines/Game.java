@@ -18,8 +18,8 @@ public class Game {
 		return instance; }
 	
 	private Game() {
-		Cards.createCards();
-		cardslist = Cards.getCards();
+		//Cards.createCards();
+		//cardslist = Cards.getCards();
 	}
 	
 	public static int getNP() {
@@ -110,7 +110,7 @@ public class Game {
 			} 
 			//Ici command pour jouer une carte
 			if(nexti.matches("play")) {
-				playhuntcard(nextPlayer);
+				//playhuntcard(nextPlayer);
 				
 				command = true;
 			} 
@@ -137,9 +137,11 @@ public class Game {
 		player.etreAccuse(p);
 	}
 	
+	/*
 	private static void playhuntcard(Player p) {
 		Cards card = selectHuntcard(p, true);
 	}
+	*/
 	
 	//Si reveal = true il ne faut pas que le joueur soit reveler pour que ça marche
 	private static Player selectplayer(boolean reveal) {
@@ -177,6 +179,7 @@ public class Game {
 	}
 	
 	//Si needplayer = true il ne faut pas qu'un joueur soit selectionné
+	/*
 	private static Cards selectHuntcard (Player p, boolean needplayer) {
 		Scanner sc= new Scanner(System.in);
 		
@@ -216,6 +219,7 @@ public class Game {
 		
 		return null;
 	}
+	*/
 	
 	private static void selectidentities() {
 		Scanner sc= new Scanner(System.in);
