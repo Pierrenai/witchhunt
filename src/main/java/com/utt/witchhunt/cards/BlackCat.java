@@ -27,7 +27,18 @@ public class BlackCat extends Cards {
 		Game.setnextPlayer(target);
 		return true;
 		
+		/*
+		List<Cards> cardslist = Game.getdiscardedcardlist();
+		if(cardslist.isEmpty()) return false;
+		//Ici faut rajouter le code pour choisir une carte
 		
+		caster.removeCard(this);
+		Game.adddiscardedCard(this);
+		
+		Game.setnextPlayer(caster);
+		
+		//Déso je n'ai pas m'en empecher
+		 */
 		
 	}
 

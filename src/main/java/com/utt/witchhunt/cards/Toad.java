@@ -14,10 +14,10 @@ public class Toad extends Cards {
 	}
 
 	@Override
-	public void HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster, Player target) {
 		caster.revealIdentity();
 		if(caster.getIdentity().matches("Witch")) {
-			Game.setnextPlayer(caster); //pas le caster, random ?
+			Game.setnextPlayer(caster); //pas le caster, random ? @P:Je pense qu'on va prendre le joueur n-1
 			return true;
 		}
 		if(caster.getIdentity().matches("Villager")) {

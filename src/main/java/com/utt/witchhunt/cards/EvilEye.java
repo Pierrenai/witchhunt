@@ -9,7 +9,7 @@ public class EvilEye extends Cards {
 	@Override
 	public boolean WitchSide(Player caster, Player target) {
 		Game.setnextPlayer(target);
-		//DOIT ACCUSER QQ AUTRE QUE LE CASTER 
+		//DOIT ACCUSER QQ AUTRE QUE LE CASTER @P:mdr
 
 		
 	}

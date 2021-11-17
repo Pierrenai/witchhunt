@@ -16,11 +16,11 @@ public class PetNewi extends Cards {
 	}
 
 	@Override
-	public void HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster, Player target) {
 		Scanner sc= new Scanner(System.in);
 		System.out.println("From which player do you want to take a revealed card?");
 		String nexti = sc.nextLine();
-		
+		//Ici ta pas piqué mon code mdr
 		
 		Game.setnextPlayer(target);
 		

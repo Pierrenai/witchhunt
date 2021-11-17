@@ -10,12 +10,12 @@ import com.utt.witchhunt.engines.Player;
 public class Cauldron extends Cards {
 
 	@Override
-	public void WitchSide(Player caster, Player target) {
+	public boolean WitchSide(Player caster, Player target) {
 		
 		//List<Cards> cards = new ArrayList<Cards>();
 		//cards = ?ACCUSATEUR?.getCards();
 		//cards.remove(0); //aleatoire????
-				
+		
 		
 	}
 
@@ -23,7 +23,7 @@ public class Cauldron extends Cards {
 	public boolean HuntSide(Player caster, Player target) {
 		caster.revealIdentity();
 		if(caster.getIdentity().matches("Witch")) {
-			Game.setnextPlayer(caster); //attention pas le caster, random ?
+			Game.setnextPlayer(caster); //attention pas le caster, random ? @P:Je pense qu'on va prendre le joueur n-1
 			return true;
 		}
 		if(caster.getIdentity().matches("Villager")) {

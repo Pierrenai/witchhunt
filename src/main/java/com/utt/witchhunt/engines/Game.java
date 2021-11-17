@@ -51,6 +51,10 @@ public class Game {
 		return cardslist;
 	}
 	
+	public void adddiscardedCard(Cards c) {
+		cardslist.add(c);
+	}
+	
 	public static void distributeCards() {
 		Random rand = new Random();
 		int nc = 0;

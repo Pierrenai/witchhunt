@@ -19,8 +19,12 @@ public class Player {
 		return name;
 	}
 	
-	void addCard(Cards c) {
+	public void addCard(Cards c) {
 		this.cards.add(c);
+	}
+	
+	public void removeCard(Cards c) {
+		this.cards.remove(c);
 	}
 	
 	public List<Cards> getCards() {

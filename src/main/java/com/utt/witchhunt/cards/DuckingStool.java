@@ -19,6 +19,7 @@ public class DuckingStool extends Cards {
 
 	@Override
 	public boolean HuntSide(Player caster, Player target) {
+		//Je vois que tu copie allègrement mon code
 		Scanner sc= new Scanner(System.in);
 		System.out.println(target+ "Press Y to reveal your identity | N to discard a card from your hand");
 		boolean command = false;
@@ -44,12 +45,12 @@ public class DuckingStool extends Cards {
 			}
 		}while(!command);
 		
-		if(caster.getIdentity().matches("Witch")) {
+		if(caster.getIdentity().matches("Witch")) { //Tu confond le caster et la target
 			caster.addPoints(1);
 			Game.setnextPlayer(caster);
 			return true;
 		}
-		if(caster.getIdentity().matches("Villager")) {
+		if(caster.getIdentity().matches("Villager")) { //La même ici
 			caster.removePoints(1);
 			Game.setnextPlayer(target);
 			return true;
