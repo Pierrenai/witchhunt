@@ -8,7 +8,7 @@ public class Player {
 	private String name;
 	private int pts = 0;
 	private boolean reveal = false;
-	private String identity = "un bug";
+	private CharacterType identity;
 	private List<Cards> cards = new ArrayList<Cards>();
 
 	public Player(String n) {
@@ -31,6 +31,18 @@ public class Player {
 		return cards;
 	}
 	
+	public boolean canplayCards() {
+		List<Cards> notrevealcards = new ArrayList<Cards>();
+		for(int i=0; i < cards.size(); i++) {
+			if(!cards.get(i).isReveal()) {
+				notrevealcards.add(cards.get(i));
+			}
+		}
+		if(notrevealcards.isEmpty()) {
+			return false;
+		} else return true;
+	}
+	
 	@Override
 	public String toString() {
 		return name;
@@ -49,7 +61,7 @@ public class Player {
 			if(nexti.matches("Y")) {
 				reveal = true;
 				System.out.println(this + " est " + identity);
-				if(this.identity.matches("Witch")) {
+				if(this.identity == CharacterType.WITCH) {
 					p.addPoints(1);
 				}
 				
@@ -58,6 +70,28 @@ public class Player {
 			//Ici le joueur ne revele pas son identité
 			if(nexti.matches("N")) {
 				System.out.println(this + " est le prochain joueur");
+				if(this.canplayCards()) {
+					/*
+					 * Bug à cause que dans le selectcard il cherche le nextPlayer de Game !!! à réfléchir
+					Cards c = Game.selectcard(this);
+					if(c.isPlayerRequiredWitch()) {
+						if(c.WitchSide(this, Game.selectplayer(false))) {
+							c.setReveal();
+							Game.endTurn();
+							command = true;
+						}
+						else System.out.println("ERROR : Can't play this card");
+					} else {
+						if(c.WitchSide(this, null)) {
+							c.setReveal();
+							Game.endTurn();
+							command = true;
+						}
+						else System.out.println("ERROR : Can't play this card");
+					}*/
+				} else {
+					System.out.println("ERROR : you don't have any more cards");
+				}
 				
 				command = true;
 			}
@@ -73,11 +107,11 @@ public class Player {
 		return reveal;
 	}
 	
-	public void setIdentity(String i) {
+	public void setIdentity(CharacterType i) {
 		this.identity = i;
 	}
 	
-	public String getIdentity() {
+	public CharacterType getIdentity() {
 		return this.identity;
 	}
 	

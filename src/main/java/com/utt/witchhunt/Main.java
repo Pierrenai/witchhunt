@@ -40,13 +40,7 @@ public class Main {
 		
 		//Ici on créer une partie
 		Game G = Game.getInstance();
-		if(G.editNP(np)) System.out.println("NP successfully changed");
-	    
-	    //Ici on créer les joueurs
-	    G.createPlayers();
-	    
-	    //Ici on commence un round
-	    G.nextRound();
+		G.startGame(np);
 		
 	  }
 }

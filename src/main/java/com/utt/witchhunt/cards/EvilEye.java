@@ -10,14 +10,18 @@ public class EvilEye extends Cards {
 	public boolean WitchSide(Player caster, Player target) {
 		Game.setnextPlayer(target);
 		//DOIT ACCUSER QQ AUTRE QUE LE CASTER @P:mdr
+		
+		return false;
 
 		
 	}
 
 	@Override
-	public void HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster, Player target) {
 		Game.setnextPlayer(target);
 		//Doit accuser qq autre au tour suivant
+		
+		return false;
 	}
 
 }

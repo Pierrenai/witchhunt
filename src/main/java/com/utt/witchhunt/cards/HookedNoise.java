@@ -6,15 +6,13 @@ import com.utt.witchhunt.engines.Player;
 public class HookedNoise extends Cards {
 
 	@Override
-	public void WitchSide(Player caster, Player target) {
-		// TODO Auto-generated method stub
-		
+	public boolean WitchSide(Player caster, Player target) {
+		return false;
 	}
 
 	@Override
-	public void HuntSide(Player caster, Player target) {
-		// TODO Auto-generated method stub
-		
+	public boolean HuntSide(Player caster, Player target) {
+		return false;		
 	}
 
 }

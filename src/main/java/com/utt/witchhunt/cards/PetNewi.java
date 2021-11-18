@@ -24,6 +24,8 @@ public class PetNewi extends Cards {
 		
 		Game.setnextPlayer(target);
 		
+		return false;
+		
 	}
 
 }

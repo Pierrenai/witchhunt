@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.utt.witchhunt.engines.Cards;
+import com.utt.witchhunt.engines.CharacterType;
 import com.utt.witchhunt.engines.Game;
 import com.utt.witchhunt.engines.Player;
 
@@ -45,12 +46,12 @@ public class DuckingStool extends Cards {
 			}
 		}while(!command);
 		
-		if(caster.getIdentity().matches("Witch")) { //Tu confond le caster et la target
+		if(caster.getIdentity()==CharacterType.WITCH) { //Tu confond le caster et la target
 			caster.addPoints(1);
 			Game.setnextPlayer(caster);
 			return true;
 		}
-		if(caster.getIdentity().matches("Villager")) { //La même ici
+		if(caster.getIdentity()==CharacterType.VILLAGER) { //La même ici
 			caster.removePoints(1);
 			Game.setnextPlayer(target);
 			return true;

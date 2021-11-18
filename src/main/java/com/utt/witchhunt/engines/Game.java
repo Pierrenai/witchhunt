@@ -18,18 +18,19 @@ public class Game {
 		return instance; }
 	
 	private Game() {
-		//Cards.createCards();
-		//cardslist = Cards.getCards();
 	}
 	
-	public static int getNP() {
-		return nplayer;
-	}
-	
-	public static boolean editNP(int np) {
+	public void startGame(int np) {
 		nplayer = np;
-		if(nplayer==np)return true; 
-		else return false;
+	    
+	    //Ici on créer les joueurs
+	    createPlayers();
+	    
+	    //On récupère les cartes
+	    cardslist = Cards.getcardslist();
+	    
+	    //Ici on commence un round
+	    nextRound();
 	}
 	
 	public static void createPlayers() {
@@ -86,8 +87,17 @@ public class Game {
 	
 	public static void setnextPlayer(Player p) {
 		nextPlayer = p;
+	}
+	
+	public static void endTurn() {
+		//Verifier si quelqu'un a gagné
+		Boolean winner = false;
 		
-		nextTurn();
+		if(winner) {
+			nextRound();
+		} else {
+			nextTurn();
+		}
 	}
 	
 	public static void nextTurn() {
@@ -114,9 +124,26 @@ public class Game {
 			} 
 			//Ici command pour jouer une carte
 			if(nexti.matches("play")) {
-				//playhuntcard(nextPlayer);
-				
-				command = true;
+				if(nextPlayer.canplayCards()) {
+					Cards c = selectcard(nextPlayer);
+					if(c.isPlayerRequiredHunt()) {
+						if(c.HuntSide(nextPlayer, selectplayer(false))) {
+							c.setReveal();
+							endTurn();
+							command = true;
+						}
+						else System.out.println("ERROR : Can't play this card");
+					} else {
+						if(c.HuntSide(nextPlayer, null)) {
+							c.setReveal();
+							endTurn();
+							command = true;
+						}
+						else System.out.println("ERROR : Can't play this card");
+					}
+				} else {
+					System.out.println("ERROR : you don't have any more cards");
+				}
 			} 
 			else {
 				System.out.println("ERROR : not recognize");
@@ -141,14 +168,8 @@ public class Game {
 		player.etreAccuse(p);
 	}
 	
-	/*
-	private static void playhuntcard(Player p) {
-		Cards card = selectHuntcard(p, true);
-	}
-	*/
-	
-	//Si reveal = true il ne faut pas que le joueur soit reveler pour que ça marche
-	private static Player selectplayer(boolean reveal) {
+	//Si notreveal = true il ne faut pas que le joueur soit reveler pour que ça marche
+	public static Player selectplayer(boolean notreveal) {
 		Scanner sc= new Scanner(System.in);
 		
 		for(int i=0; i < playerlist.size(); i++) {
@@ -165,7 +186,7 @@ public class Game {
 				Player player = playerlist.get(nexti);
 				
 				//On vérifie si on a besoin que le joueur ne soit pas révélé et si il est reveal
-				if(reveal && player.isReveal()) {
+				if(notreveal && player.isReveal()) {
 					System.out.println(player + "is already reveal");
 					System.out.println("Choose an other player");
 				} else {
@@ -182,9 +203,7 @@ public class Game {
 		return null;
 	}
 	
-	//Si needplayer = true il ne faut pas qu'un joueur soit selectionné
-	/*
-	private static Cards selectHuntcard (Player p, boolean needplayer) {
+	public static Cards selectcard (Player p) {
 		Scanner sc= new Scanner(System.in);
 		
 		List<Cards> playercards = p.getCards();
@@ -206,14 +225,10 @@ public class Game {
 					System.out.println("Choose an other card");
 				} else {
 					System.out.println(p + " played " + card);
-					if(card.isPlayerRequired()) {
-						Player player = selectplayer(false);
-						
-					} else {
-						
-					}
 					
 					command = true;
+					
+					return card;
 				}
 			} 
 			else {
@@ -223,7 +238,6 @@ public class Game {
 		
 		return null;
 	}
-	*/
 	
 	private static void selectidentities() {
 		Scanner sc= new Scanner(System.in);
@@ -238,12 +252,12 @@ public class Game {
 			do{
 				String nexti = sc.nextLine();
 				if(nexti.matches("W")) {
-					player.setIdentity("Witch");
+					player.setIdentity(CharacterType.WITCH);
 					
 					command = true;
 				} 
 				if(nexti.matches("V")) {
-					player.setIdentity("Villager");
+					player.setIdentity(CharacterType.VILLAGER);
 					
 					command = true;
 				}
