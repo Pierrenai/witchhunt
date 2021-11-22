@@ -10,7 +10,7 @@ import java.util.Scanner;
  * 
  * Là où tout se passe
  * 
- * @author piotr
+ * @author Pierre et Maud
  *
  */
 public class Game {
@@ -40,9 +40,6 @@ public class Game {
 	    
 	    //Ici on créer les joueurs
 	    createPlayers();
-	    
-	    //On récupère les cartes
-	    cardslist = Cards.getcardslist();
 	    
 	    //Ici on commence un round
 	    nextRound();
@@ -94,6 +91,8 @@ public class Game {
 	 * </pre> 
 	 */
 	public static void distributeCards() {
+		cardslist = Cards.getcardslist();
+		
 		Random rand = new Random();
 		int nc = 0;
 		
@@ -122,13 +121,24 @@ public class Game {
 		
 	}
 	
+	/**
+	 * Permet de définir le prochain joueur
+	 * 
+	 * @param p
+	 * Prochain joueur
+	 */
 	public static void setnextPlayer(Player p) {
 		nextPlayer = p;
 	}
 	
+	/**
+	 * Execute toutes les actions de fin de tour
+	 */
 	public static void endTurn() {
 		//Verifier si quelqu'un a gagné
 		Boolean winner = false;
+		
+		checkPts();
 		
 		if(winner) {
 			nextRound();
@@ -137,6 +147,10 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Enclenche un nouveau tour
+	 * 
+	 */
 	public static void nextTurn() {
 		clearScreen();
 		
@@ -155,16 +169,18 @@ public class Game {
 			String nexti = sc.nextLine();
 			//Ici si on met accuse dans la command le joueur accuse
 			if(nexti.matches("accuse")) {
-				accuserpar(nextPlayer);
+				Player accusedplayer = IHM.selectplayer(nextPlayer, true);
+				
+				accusedplayer.etreAccuse(nextPlayer);
 				
 				command = true;
 			} 
 			//Ici command pour jouer une carte
 			if(nexti.matches("play")) {
 				if(nextPlayer.canplayCards()) {
-					Cards c = selectcard(nextPlayer);
+					Cards c = IHM.selectcard(nextPlayer);
 					if(c.isPlayerRequiredHunt()) {
-						if(c.HuntSide(nextPlayer, selectplayer(false))) {
+						if(c.HuntSide(nextPlayer, IHM.selectplayer(nextPlayer, false))) {
 							c.setReveal();
 							endTurn();
 							command = true;
@@ -189,6 +205,8 @@ public class Game {
 	}
 	
 	public static void nextRound() {
+		//On supprimer toutes les cartes
+		//removeAllCards();
 		//On distribu les cartes au début du round
 		distributeCards();
 		//Selection des rôles
@@ -199,83 +217,9 @@ public class Game {
 		nextTurn();
 	}
 	
-	private static void accuserpar(Player p) {
-		Player player = selectplayer(true);
-				
-		player.etreAccuse(p);
-	}
-	
-	//Si notreveal = true il ne faut pas que le joueur soit reveler pour que ça marche
-	public static Player selectplayer(boolean notreveal) {
-		Scanner sc= new Scanner(System.in);
-		
-		for(int i=0; i < playerlist.size(); i++) {
-			Player player = playerlist.get(i);
-			if(player!=nextPlayer) {
-				System.out.println(i + " : " + player + " reveal : " + player.isReveal());
-			}
-		}
-		
-		boolean command = false;
-		do{
-			int nexti = sc.nextInt();
-			if(nexti <= playerlist.size()) {
-				Player player = playerlist.get(nexti);
-				
-				//On vérifie si on a besoin que le joueur ne soit pas révélé et si il est reveal
-				if(notreveal && player.isReveal()) {
-					System.out.println(player + "is already reveal");
-					System.out.println("Choose an other player");
-				} else {
-					command = true;
-					
-					return player;
-				}
-			} 
-			else {
-				System.out.println("ERROR : select an existing player");
-			}
-		}while(!command);
-		
-		return null;
-	}
-	
-	public static Cards selectcard (Player p) {
-		Scanner sc= new Scanner(System.in);
-		
-		List<Cards> playercards = p.getCards();
-		
-		for(int i=0; i < playercards.size(); i++) {
-			Cards card = playercards.get(i);
-			System.out.println(i + " : " + card);
-		}
-		
-				
-		boolean command = false;
-		do{
-			int nexti = sc.nextInt();
-			if(nexti <= playercards.size()) {
-				Cards card = playercards.get(nexti);
-				//On vérifie si la carte n'est pas déjà révélé
-				if(card.isReveal()) {
-					System.out.println(card + "is already reveal");
-					System.out.println("Choose an other card");
-				} else {
-					System.out.println(p + " played " + card);
-					
-					command = true;
-					
-					return card;
-				}
-			} 
-			else {
-				System.out.println("ERROR : select an existing cards");
-			}
-		}while(!command);
-		
-		return null;
-	}
-	
+	/**
+	 * Selectionner les identités de chacun en début de tour
+	 */
 	private static void selectidentities() {
 		Scanner sc= new Scanner(System.in);
 		
@@ -307,13 +251,23 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Saute 50 ligne dans la console pour ne plus voir les joueurs d'avant
+	 */
 	public static void clearScreen() {  
 		for (int i = 0; i < 50; ++i) System.out.println();
 	}
 	
+	/**
+	 * Permet de montrer les points de touts les joueurs
+	 */
 	public static void checkPts() {
 		for(int i=0; i < playerlist.size(); i++) {
 			System.out.println(playerlist.get(i) + " a " + playerlist.get(i).getPoints() + " pts");
 		}
+	}
+	
+	public static List<Player> getplayerlist(){
+		return playerlist;
 	}
 }

@@ -19,9 +19,14 @@ public class AngryMob extends Cards {
 	@Override
 	public boolean HuntSide(Player caster, Player target) {
 		List<Cards> targetcards = target.getCards();
-		Broomstick broomstickcard = new Broomstick(); //Ici il faut venir récuperer la bonne carte !!!!
+		Cards broomstickcard = super.getcardwithid(4); //Ici il faut venir récuperer la bonne carte !!!!
 		
-		if(caster.isReveal() && caster.getIdentity()==CharacterType.VILLAGER && !targetcards.contains(broomstickcard) && !broomstickcard.isReveal()) {
+		boolean check = true;
+		if(targetcards.contains(broomstickcard) && broomstickcard.isReveal()) {
+			check = false;
+		}
+		
+		if(caster.isReveal() && caster.getIdentity()==CharacterType.VILLAGER && !target.isReveal() && check) {
 		target.revealIdentity();
 		if(caster.getIdentity()==CharacterType.WITCH) {
 			caster.addPoints(2);

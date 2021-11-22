@@ -164,6 +164,10 @@ public abstract class Cards {
 		return playerRequiredWitch;
 	}
 	
+	public Cards getcardwithid(int id) {
+		return cardsid[id];
+	}
+	
 	public abstract boolean WitchSide(Player caster, Player target); //Caster = celui qui joue la carte | target : celui qui est ciblé par la carte
 	public abstract boolean HuntSide(Player caster, Player target); //Idem
 }
