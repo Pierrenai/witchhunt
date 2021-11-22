@@ -5,6 +5,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+
+/**
+ * 
+ * Là où tout se passe
+ * 
+ * @author piotr
+ *
+ */
 public class Game {
 	private static int nplayer = 0;
 	private static List<Player> playerlist = new ArrayList<Player>();
@@ -20,6 +28,13 @@ public class Game {
 	private Game() {
 	}
 	
+	/**
+	 * Permet de lancer la partie
+	 * 
+	 * @param np
+	 * 
+	 * Nombre de joueur
+	 */
 	public void startGame(int np) {
 		nplayer = np;
 	    
@@ -33,6 +48,10 @@ public class Game {
 	    nextRound();
 	}
 	
+	/**
+	 * Méthode permettant de créer les joueurs de manière automatique
+	 * 
+	 */
 	public static void createPlayers() {
 		if(playerlist.isEmpty()) {
 			for(int i=0; i < nplayer; i++) {
@@ -48,14 +67,32 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Méthode permettant de récuperer les cartes de la défausse
+	 * 
+	 * @return
+	 * La list des cartes défaussés
+	 */
 	public static List<Cards> getdiscardedcardlist(){
 		return cardslist;
 	}
-	
+	/**
+	 * Méthode permettant d'ajouter une cartes à la défausse
+	 * 
+	 * @param c
+	 * La carte à défausser
+	 */
 	public void adddiscardedCard(Cards c) {
 		cardslist.add(c);
 	}
 	
+	/**
+	 * Distribue les cartes aux joueurs
+	 * 
+	 * <pre>
+	 * Attention à bien créer les joueurs avant de distribuer les cartes
+	 * </pre> 
+	 */
 	public static void distributeCards() {
 		Random rand = new Random();
 		int nc = 0;
