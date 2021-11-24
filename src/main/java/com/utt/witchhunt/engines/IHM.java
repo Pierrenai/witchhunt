@@ -3,6 +3,11 @@ package com.utt.witchhunt.engines;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Interface Homme Machine
+ * @author Pierre
+ *
+ */
 public interface IHM {
 	/**
 	 * Méthode permettant de selectionner un joueur via la console
@@ -52,10 +57,13 @@ public interface IHM {
 	 * Méhode permettant de selectionner une carte d'un joueur via la console 
 	 * @param p
 	 * Le joueur qui selectionne une carte
+	 * @param notreveal
+	 * Si reveal = true la carte choisie doit être révélé
 	 * @return
 	 * La carte choisie
 	 */
-	public static Cards selectcard (Player p) {
+	/*
+	public static Cards selectcard (Player p, boolean reveal) {
 		Scanner sc= new Scanner(System.in);
 		
 		List<Cards> playercards = p.getCards();
@@ -82,6 +90,38 @@ public interface IHM {
 					
 					return card;
 				}
+			} 
+			else {
+				System.out.println("ERROR : select an existing cards");
+			}
+		}while(!command);
+		
+		return null;
+	}
+	*/
+	
+	public static Cards newselectcard (List<Cards> cards) {
+		Scanner sc= new Scanner(System.in);
+		if(cards.size()==0) {
+			return null;
+		}
+		
+		//Listage des cartes
+		for(int i=0; i < cards.size(); i++) {
+			Cards card = cards.get(i);
+			System.out.println(i + " : " + card);
+		}
+		
+		//Boucle pour choisir la cartes
+		boolean command = false;
+		do{
+			int nexti = sc.nextInt();
+			if(nexti <= cards.size()) {
+				Cards card = cards.get(nexti);
+					
+				command = true;
+					
+				return card;
 			} 
 			else {
 				System.out.println("ERROR : select an existing cards");

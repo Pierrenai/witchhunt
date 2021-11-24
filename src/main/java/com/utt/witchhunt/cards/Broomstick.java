@@ -7,13 +7,13 @@ import com.utt.witchhunt.engines.Player;
 public class Broomstick extends Cards {
 
 	@Override
-	public boolean WitchSide(Player caster, Player target) {
+	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(caster);
 		return true;
 	}
 
 	@Override
-	public boolean HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster) {
 		Game.setnextPlayer(target);
 		return true;
 	}

@@ -10,7 +10,7 @@ import com.utt.witchhunt.engines.Player;
 public class PointedHat extends Cards {
 
 	@Override
-	public boolean WitchSide(Player caster, Player target) {
+	public boolean WitchSide(Player accuser, Player caster) {
 		List<Cards> castercards = caster.getCards();
 		List<Cards> castercardsreveal = new ArrayList<Cards>();
 		for(int i=0; i < castercards.size(); i++) {
@@ -32,7 +32,7 @@ public class PointedHat extends Cards {
 	}
 
 	@Override
-	public boolean HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster) {
 		List<Cards> castercards = caster.getCards();
 		List<Cards> castercardsreveal = new ArrayList<Cards>();
 		for(int i=0; i < castercards.size(); i++) {

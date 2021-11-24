@@ -12,14 +12,14 @@ import com.utt.witchhunt.engines.Player;
 public class DuckingStool extends Cards {
 
 	@Override
-	public boolean WitchSide(Player caster, Player target) {
+	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(target);
 		return true;
 		
 	}
 
 	@Override
-	public boolean HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster) {
 		//Je vois que tu copie allègrement mon code
 		Scanner sc= new Scanner(System.in);
 		System.out.println(target+ "Press Y to reveal your identity | N to discard a card from your hand");

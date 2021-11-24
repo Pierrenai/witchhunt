@@ -8,14 +8,14 @@ import com.utt.witchhunt.engines.Player;
 public class Toad extends Cards {
 
 	@Override
-	public boolean WitchSide(Player caster, Player target) {
+	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(caster);
 		return true;
 		
 	}
 
 	@Override
-	public boolean HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster) {
 		caster.revealIdentity();
 		if(caster.getIdentity()==CharacterType.WITCH) {
 			Game.setnextPlayer(caster); //pas le caster, random ? @P:Je pense qu'on va prendre le joueur n-1

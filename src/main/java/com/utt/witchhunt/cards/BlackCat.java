@@ -11,14 +11,14 @@ import com.utt.witchhunt.engines.Player;
 public class BlackCat extends Cards {
 
 	@Override
-	public boolean WitchSide(Player caster, Player target) {
+	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(caster);
 		return true;
 		
 	}
 
 	@Override
-	public boolean HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster) {
 		List<Cards> cardslist = new ArrayList<Cards>();
 		cardslist= Game.getdiscardedcardlist();
 		cardslist.get(0);

@@ -27,6 +27,11 @@ public class Player {
 		this.cards.remove(c);
 	}
 	
+	public void discardCard(Cards c) {
+		this.cards.remove(c);
+		Game.adddiscardedCard(c);
+	}
+	
 	public List<Cards> getCards() {
 		return cards;
 	}
@@ -37,16 +42,14 @@ public class Player {
 		}
 	}
 	
-	public boolean canplayCards() {
+	public List<Cards> getplayableCards() {
 		List<Cards> notrevealcards = new ArrayList<Cards>();
 		for(int i=0; i < cards.size(); i++) {
 			if(!cards.get(i).isReveal()) {
 				notrevealcards.add(cards.get(i));
 			}
 		}
-		if(notrevealcards.isEmpty()) {
-			return false;
-		} else return true;
+		return notrevealcards;
 	}
 	
 	@Override
@@ -56,9 +59,22 @@ public class Player {
 	
 	/**
 	 * Méthode permettant à un joueur de jouer une carte
+	 * 
+	 * @return
+	 * Si le joueur a pu jouer la carte
 	 */
-	public void playCard() {
+	public boolean playHuntCard() {
+		List<Cards> playablecards = new ArrayList<Cards>();
 		
+		for(int i=0; i < this.cards.size(); i++) {
+			if(!cards.get(i).isReveal()) playablecards.add(cards.get(i));
+		}
+		
+		Cards card = IHM.newselectcard(playablecards);
+		if(card==null) return false;
+
+		if(card.HuntSide(this)) return true;
+		else return false;
 	}
 	
 	
@@ -90,32 +106,12 @@ public class Player {
 				
 				command = true;
 			}
-			//Ici le joueur ne revele pas son identité
+			//Ici le joueur ne revele pas son identité et décide de jouer une carte Witch
 			if(nexti.matches("N")) {
-				if(this.canplayCards()) {
-					/*
-					 * Bug à cause que dans le selectcard il cherche le nextPlayer de Game !!! à réfléchir
-					Cards c = Game.selectcard(this);
-					if(c.isPlayerRequiredWitch()) {
-						if(c.WitchSide(this, Game.selectplayer(false))) {
-							c.setReveal();
-							Game.endTurn();
-							command = true;
-						}
-						else System.out.println("ERROR : Can't play this card");
-					} else {
-						if(c.WitchSide(this, null)) {
-							c.setReveal();
-							Game.endTurn();
-							command = true;
-						}
-						else System.out.println("ERROR : Can't play this card");
-					}*/
-				} else {
-					System.out.println("ERROR : you don't have any more cards");
-				}
+				Cards card = IHM.newselectcard(getplayableCards());
 				
-				command = true;
+				if(card!=null && card.WitchSide(p, this)) command = true;
+				else System.out.println("ERROR : You can't play this card");
 			}
 			else {
 				System.out.println("ERROR : Press Y to reveal | N to not reveal");

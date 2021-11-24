@@ -79,7 +79,7 @@ public class Game {
 	 * @param c
 	 * La carte à défausser
 	 */
-	public void adddiscardedCard(Cards c) {
+	public static void adddiscardedCard(Cards c) {
 		cardslist.add(c);
 	}
 	
@@ -177,26 +177,10 @@ public class Game {
 			} 
 			//Ici command pour jouer une carte
 			if(nexti.matches("play")) {
-				if(nextPlayer.canplayCards()) {
-					Cards c = IHM.selectcard(nextPlayer);
-					if(c.isPlayerRequiredHunt()) {
-						if(c.HuntSide(nextPlayer, IHM.selectplayer(nextPlayer, false))) {
-							c.setReveal();
-							endTurn();
-							command = true;
-						}
-						else System.out.println("ERROR : Can't play this card");
-					} else {
-						if(c.HuntSide(nextPlayer, null)) {
-							c.setReveal();
-							endTurn();
-							command = true;
-						}
-						else System.out.println("ERROR : Can't play this card");
-					}
-				} else {
-					System.out.println("ERROR : you don't have any more cards");
-				}
+				if(nextPlayer.playHuntCard()) {
+					endTurn();
+					command = true;
+				} else System.out.println("ERROR : Can't do this");
 			} 
 			else {
 				System.out.println("ERROR : not recognize");

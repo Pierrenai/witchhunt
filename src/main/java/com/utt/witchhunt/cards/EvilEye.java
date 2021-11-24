@@ -7,7 +7,7 @@ import com.utt.witchhunt.engines.Player;
 public class EvilEye extends Cards {
 
 	@Override
-	public boolean WitchSide(Player caster, Player target) {
+	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(target);
 		//DOIT ACCUSER QQ AUTRE QUE LE CASTER @P:mdr
 		
@@ -17,7 +17,7 @@ public class EvilEye extends Cards {
 	}
 
 	@Override
-	public boolean HuntSide(Player caster, Player target) {
+	public boolean HuntSide(Player caster) {
 		Game.setnextPlayer(target);
 		//Doit accuser qq autre au tour suivant
 		

@@ -18,8 +18,6 @@ import com.utt.witchhunt.cards.Wart;
 
 public abstract class Cards {
 	private boolean reveal = false;
-	private boolean playerRequiredWitch = true;
-	private boolean playerRequiredHunt = true;
 	private String desc;
 	private String name;
 	
@@ -156,18 +154,10 @@ public abstract class Cards {
 		this.reveal = true;
 	}
 	
-	public boolean isPlayerRequiredHunt() {
-		return playerRequiredHunt;
-	}
-	
-	public boolean isPlayerRequiredWitch() {
-		return playerRequiredWitch;
-	}
-	
 	public Cards getcardwithid(int id) {
 		return cardsid[id];
 	}
 	
-	public abstract boolean WitchSide(Player caster, Player target); //Caster = celui qui joue la carte | target : celui qui est ciblé par la carte
-	public abstract boolean HuntSide(Player caster, Player target); //Idem
+	public abstract boolean WitchSide(Player accuser, Player caster); //Accuser = celui qui accusé | Caster = celui qui se défend avec la carte witch
+	public abstract boolean HuntSide(Player caster); //Caster celui qui joue la carte
 }
