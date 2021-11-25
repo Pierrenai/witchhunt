@@ -211,7 +211,7 @@ public class Game {
 	
 	public static void nextRound() {
 		//On supprimer toutes les cartes
-		//removeAllCards();
+		removeAllCards();
 		//On distribu les cartes au début du round
 		distributeCards();
 		//Selection des rôles
@@ -259,6 +259,13 @@ public class Game {
 	 */
 	public static void clearScreen() {  
 		for (int i = 0; i < 50; ++i) System.out.println();
+	}
+	
+	public static void removeAllCards() {  
+		for (int i = 0; i < playerlist.size(); i++) {
+			playerlist.get(i).clearCards();
+		}
+		cardslist.clear();
 	}
 	
 	/**

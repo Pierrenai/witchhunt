@@ -36,10 +36,8 @@ public class Player {
 		return cards;
 	}
 	
-	public void deleteCards() {
-		for(int i=0; i < cards.size(); i++) {
-			this.removeCard(cards.get(i));
-		}
+	public void clearCards() {
+		cards.clear();
 	}
 	
 	public List<Cards> getplayableCards() {
