@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.Game;
+import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class PointedHat extends Cards {
@@ -21,8 +22,7 @@ public class PointedHat extends Cards {
 		
 		
 		if(!castercardsreveal.isEmpty()) {
-			int cardid = 0;//CHOICE CARD
-			Cards choicedcard = castercardsreveal.get(cardid);
+			Cards choicedcard = IHM.newselectcard(castercardsreveal);
 			choicedcard.setNotReveal();
 			Game.setnextPlayer(caster);
 			return true;
@@ -43,10 +43,9 @@ public class PointedHat extends Cards {
 		
 		
 		if(!castercardsreveal.isEmpty()) {
-			int cardid = 0;//CHOICE CARD
-			Cards choicedcard = castercardsreveal.get(cardid);
+			Cards choicedcard = IHM.newselectcard(castercardsreveal);
 			choicedcard.setNotReveal();
-			Game.setnextPlayer(target);
+			Game.setnextPlayer(IHM.selectplayer(caster, false));
 			return true;
 		}
 		

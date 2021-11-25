@@ -53,7 +53,7 @@ public interface IHM {
 		return null;
 	}
 	
-	/**
+	/*
 	 * Méhode permettant de selectionner une carte d'un joueur via la console 
 	 * @param p
 	 * Le joueur qui selectionne une carte
@@ -61,8 +61,8 @@ public interface IHM {
 	 * Si reveal = true la carte choisie doit être révélé
 	 * @return
 	 * La carte choisie
-	 */
-	/*
+	 *
+	 *
 	public static Cards selectcard (Player p, boolean reveal) {
 		Scanner sc= new Scanner(System.in);
 		
@@ -100,6 +100,11 @@ public interface IHM {
 	}
 	*/
 	
+	/**
+	 * A FAIRE !!!
+	 * @param cards
+	 * @return
+	 */
 	public static Cards newselectcard (List<Cards> cards) {
 		Scanner sc= new Scanner(System.in);
 		if(cards.size()==0) {
@@ -117,9 +122,8 @@ public interface IHM {
 		do{
 			int nexti = sc.nextInt();
 			if(nexti <= cards.size()) {
-				Cards card = cards.get(nexti);
-					
 				command = true;
+				Cards card = cards.get(nexti);
 					
 				return card;
 			} 

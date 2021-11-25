@@ -64,11 +64,7 @@ public class Player {
 	 * Si le joueur a pu jouer la carte
 	 */
 	public boolean playHuntCard() {
-		List<Cards> playablecards = new ArrayList<Cards>();
-		
-		for(int i=0; i < this.cards.size(); i++) {
-			if(!cards.get(i).isReveal()) playablecards.add(cards.get(i));
-		}
+		List<Cards> playablecards = this.getplayableCards();
 		
 		Cards card = IHM.newselectcard(playablecards);
 		if(card==null) return false;
@@ -102,7 +98,6 @@ public class Player {
 				}
 				
 				Game.setnextPlayer(this);
-				Game.endTurn();
 				
 				command = true;
 			}
@@ -111,12 +106,15 @@ public class Player {
 				Cards card = IHM.newselectcard(getplayableCards());
 				
 				if(card!=null && card.WitchSide(p, this)) command = true;
-				else System.out.println("ERROR : You can't play this card");
+				else System.out.println("ERROR : You can't do this");
+				System.out.println("Press Y to reveal | N to not reveal");
 			}
 			else {
 				System.out.println("ERROR : Press Y to reveal | N to not reveal");
 			}
 		}while(!command);
+		
+		Game.endTurn();
 	}
 	
 	/**

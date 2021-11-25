@@ -135,15 +135,37 @@ public class Game {
 	 * Execute toutes les actions de fin de tour
 	 */
 	public static void endTurn() {
-		//Verifier si quelqu'un a gagné
-		Boolean winner = false;
+		Player bigwinner = null;
+		Player roundwinner = null;
+		
+		//Vérifie si il reste un seul joueur non révélé
+		List<Player> playernotreveal = new ArrayList<Player>();
+		for(int i=0; i < playerlist.size(); i++) {
+			if(!playerlist.get(i).isReveal()) playernotreveal.add(playerlist.get(i));
+		}
+		
+		if(playernotreveal.size()==1) roundwinner = playernotreveal.get(0);
+		if(roundwinner!=null && roundwinner.getIdentity()==CharacterType.WITCH) roundwinner.addPoints(2); 
+		if(roundwinner!=null && roundwinner.getIdentity()==CharacterType.VILLAGER) roundwinner.addPoints(1); 
 		
 		checkPts();
 		
-		if(winner) {
-			nextRound();
-		} else {
-			nextTurn();
+		for(int i=0; i < playerlist.size(); i++) {
+			if(playerlist.get(i).getPoints()>=5) {
+				bigwinner = playerlist.get(i);
+				break;
+			}
+		}
+		
+		if(bigwinner!=null) {
+			System.out.println(bigwinner + " a gagné(e)");
+		}
+		else {
+			if(roundwinner!=null) {
+				nextRound();
+			} else {
+				nextTurn();
+			}
 		}
 	}
 	
@@ -169,17 +191,16 @@ public class Game {
 			String nexti = sc.nextLine();
 			//Ici si on met accuse dans la command le joueur accuse
 			if(nexti.matches("accuse")) {
+				command = true;
 				Player accusedplayer = IHM.selectplayer(nextPlayer, true);
 				
 				accusedplayer.etreAccuse(nextPlayer);
-				
-				command = true;
 			} 
 			//Ici command pour jouer une carte
 			if(nexti.matches("play")) {
 				if(nextPlayer.playHuntCard()) {
-					endTurn();
 					command = true;
+					endTurn();
 				} else System.out.println("ERROR : Can't do this");
 			} 
 			else {
@@ -217,14 +238,12 @@ public class Game {
 			do{
 				String nexti = sc.nextLine();
 				if(nexti.matches("W")) {
-					player.setIdentity(CharacterType.WITCH);
-					
 					command = true;
+					player.setIdentity(CharacterType.WITCH);
 				} 
 				if(nexti.matches("V")) {
-					player.setIdentity(CharacterType.VILLAGER);
-					
 					command = true;
+					player.setIdentity(CharacterType.VILLAGER);
 				}
 				else {
 					System.out.println("ERROR : select an existing identity");
