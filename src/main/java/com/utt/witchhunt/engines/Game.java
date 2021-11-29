@@ -129,6 +129,7 @@ public class Game {
 	 */
 	public static void setnextPlayer(Player p) {
 		nextPlayer = p;
+		System.out.println(nextPlayer + " is nextPlayer");
 	}
 	
 	/**
@@ -192,7 +193,7 @@ public class Game {
 			//Ici si on met accuse dans la command le joueur accuse
 			if(nexti.matches("accuse")) {
 				command = true;
-				Player accusedplayer = IHM.selectplayer(nextPlayer, true);
+				Player accusedplayer = IHM.newselectplayer(playerlistnotreveal(nextPlayer));
 				
 				accusedplayer.etreAccuse(nextPlayer);
 			} 
@@ -279,5 +280,21 @@ public class Game {
 	
 	public static List<Player> getplayerlist(){
 		return playerlist;
+	}
+	
+	public static List<Player> playerlistnotreveal(Player playertoexclude){
+		List<Player> playerlistnotreveal = new ArrayList<Player>();
+		for(int i=0; i < playerlist.size(); i++) {
+			if(!playerlist.get(i).isReveal() && playerlist.get(i)!=playertoexclude) playerlistnotreveal.add(playerlist.get(i));
+		}
+		return playerlistnotreveal;
+	}
+	
+	public static List<Player> playerlistreveal(Player playertoexclude){
+		List<Player> playerlistreveal = new ArrayList<Player>();
+		for(int i=0; i < playerlist.size(); i++) {
+			if(playerlist.get(i)!=playertoexclude) playerlistreveal.add(playerlist.get(i));
+		}
+		return playerlistreveal;
 	}
 }

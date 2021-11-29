@@ -32,6 +32,7 @@ public class HookedNoise extends Cards {
 	        caster.addCard(randomElement);
 	        
 			Game.setnextPlayer(caster);
+			this.setReveal();
 			return true;
 		}
 		
@@ -42,7 +43,7 @@ public class HookedNoise extends Cards {
 	public boolean HuntSide(Player caster) {
 		Random rand = new Random();
 		
-		Player target = IHM.selectplayer(caster, false);
+		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
 		
 		List<Cards> accusercards = target.getCards();
 		List<Cards> castercardsnotreveal = new ArrayList<Cards>();
@@ -61,6 +62,7 @@ public class HookedNoise extends Cards {
 	        caster.addCard(randomElement);
 	        
 			Game.setnextPlayer(target);
+			this.setReveal();
 			return true;
 		}
 		return false;		

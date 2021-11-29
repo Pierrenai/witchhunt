@@ -13,12 +13,13 @@ public class AngryMob extends Cards {
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(caster);
+		this.setReveal();
 		return true;
 	}
 
 	@Override
 	public boolean HuntSide(Player caster) {
-		Player target = IHM.selectplayer(caster, true);
+		Player target = IHM.newselectplayer(Game.playerlistnotreveal(caster));
 		List<Cards> targetcards = target.getCards();
 		Cards broomstickcard = super.getcardwithid(4);
 		
@@ -35,6 +36,7 @@ public class AngryMob extends Cards {
 			caster.removePoints(2);
 			Game.setnextPlayer(target);
 		}
+		this.setReveal();
 		return true;
 		}
 		return false;

@@ -25,6 +25,7 @@ public class PointedHat extends Cards {
 			Cards choicedcard = IHM.newselectcard(castercardsreveal);
 			choicedcard.setNotReveal();
 			Game.setnextPlayer(caster);
+			this.setReveal();
 			return true;
 		}
 		
@@ -45,7 +46,8 @@ public class PointedHat extends Cards {
 		if(!castercardsreveal.isEmpty()) {
 			Cards choicedcard = IHM.newselectcard(castercardsreveal);
 			choicedcard.setNotReveal();
-			Game.setnextPlayer(IHM.selectplayer(caster, false));
+			Game.setnextPlayer(IHM.newselectplayer(Game.playerlistreveal(caster)));
+			this.setReveal();
 			return true;
 		}
 		
