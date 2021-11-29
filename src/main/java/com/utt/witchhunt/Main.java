@@ -23,6 +23,7 @@ public class Main {
 		//Ici sont les variables initialisées
 		Scanner sc= new Scanner(System.in);
 		int np = 0;
+		int nbot = 0;
 	
 		//Ici on recup le nombre de joueur
 		System.out.println("Entrez un nombre de joueurs entre 3 et 6 : ");
@@ -38,9 +39,22 @@ public class Main {
 			}
 		}while(!p36);
 		
+		System.out.println("Entrez un nombre de joueurs virtuel entre 0 et " + np + " : ");
+		boolean command = false;
+		do{
+			int nexti = sc.nextInt();
+			if(nexti >= 0 && nexti <= np) {
+				nbot = nexti;
+				command = true;
+			} else {
+				System.out.println("ERROR : bot must be between 0 and " + np);
+				System.out.println("Entrez un nombre de joueurs virtuel entre 3 et " + np + " : ");
+			}
+		}while(!command);
+		
 		//Ici on créer une partie
 		Game G = Game.getInstance();
-		G.startGame(np);
+		G.startGame(np, nbot);
 		
 	  }
 }

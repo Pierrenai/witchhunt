@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Player {
+public abstract class Player {
 	private String name;
 	private int pts = 0;
 	private boolean reveal = false;
@@ -61,16 +61,7 @@ public class Player {
 	 * @return
 	 * Si le joueur a pu jouer la carte
 	 */
-	public boolean playHuntCard() {
-		List<Cards> playablecards = this.getplayableCards();
-		
-		Cards card = IHM.newselectcard(playablecards);
-		if(card==null) return false;
-
-		if(card.HuntSide(this)) return true;
-		else return false;
-	}
-	
+	public abstract boolean playHuntCard();
 	
 	/**
 	 * Méthode permettant au joueur d'être accusé
@@ -78,42 +69,12 @@ public class Player {
 	 * @param p
 	 * Le joueur qui accuse
 	 */
-	public void etreAccuse(Player p) {
-		System.out.println(this + " est accusé par " + p);
-		System.out.println("Press Y to reveal | N to not reveal");
-
-		
-		Scanner sc= new Scanner(System.in);
-		boolean command = false;
-		do{
-			String nexti = sc.nextLine();
-			//Ici le joueur revele son identité
-			if(nexti.matches("Y")) {
-				this.reveal = true;
-				System.out.println(this + " est " + identity);
-				if(this.identity == CharacterType.WITCH) {
-					p.addPoints(1);
-				}
-				
-				Game.setnextPlayer(this);
-				
-				command = true;
-			}
-			//Ici le joueur ne revele pas son identité et décide de jouer une carte Witch
-			if(nexti.matches("N")) {
-				Cards card = IHM.newselectcard(getplayableCards());
-				
-				if(card!=null && card.WitchSide(p, this)) command = true;
-				else System.out.println("ERROR : You can't do this");
-				System.out.println("Press Y to reveal | N to not reveal");
-			}
-			else {
-				System.out.println("ERROR : Press Y to reveal | N to not reveal");
-			}
-		}while(!command);
-		
-		Game.endTurn();
-	}
+	public abstract void etreAccuse(Player p);
+	
+	/**
+	 * Méthode permettant au joueur de choisir son identité
+	 */
+	public abstract void selectIdentity();
 	
 	/**
 	 * Getter de reveal
@@ -134,7 +95,7 @@ public class Player {
 	 */
 	public void setIdentity(CharacterType i) {
 		this.identity = i;
-		this.reveal = false;
+		this.setReveal(false);
 	}
 	/**
 	 * Getter de identity
@@ -178,8 +139,12 @@ public class Player {
 	 * Permet de revelé l'identité
 	 */
 	public void revealIdentity() {
-		this.reveal = true;
+		this.setReveal(true);
 		System.out.println(this + " est " + identity);
+	}
+
+	public void setReveal(boolean reveal) {
+		this.reveal = reveal;
 	}
 
 

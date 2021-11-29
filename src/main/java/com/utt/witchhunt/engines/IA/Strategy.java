@@ -3,9 +3,10 @@ package com.utt.witchhunt.engines.IA;
 import java.util.List;
 
 import com.utt.witchhunt.engines.Cards;
+import com.utt.witchhunt.engines.Player;
 
 public interface Strategy {
-	public int doOperation(int num1, int num2);
-	
-	public Cards playCard(List<Cards> cards);
+	public boolean playHuntCard();
+	public void etreAccuse(Player p);
+	public void selectIdentity();
 }
