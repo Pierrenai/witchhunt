@@ -97,4 +97,11 @@ public class RealPlayer extends Player {
 		}while(!command);
 		
 	}
+
+
+	@Override
+	public void accuser() {
+		Player accusee = IHM.newselectplayer(Game.playerlistnotreveal(this));
+		accusee.etreAccuse(this);
+	}
 }

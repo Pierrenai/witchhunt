@@ -72,6 +72,20 @@ public abstract class Player {
 	public abstract void etreAccuse(Player p);
 	
 	/**
+	 * Méthode permettant au joueur d'accuser
+	 * 
+	 */
+	public abstract void accuser();
+	
+	/**
+	 * Méthode permettant au joueur d'accuser
+	 * 
+	 * @param ppasaccusable
+	 * Le joueur qui est pas accusable
+	 */
+	public abstract void accuser(Player ppasaccusable);
+	
+	/**
 	 * Méthode permettant au joueur de choisir son identité
 	 */
 	public abstract void selectIdentity();
