@@ -17,7 +17,6 @@ public interface IHM {
 	 * Si notreveal = true il ne faut pas que le joueur soit reveler pour que ça marche
 	 * @return
 	 * Le joueur séléctionné
-	 */
 	public static Player selectplayer(Player p, boolean notreveal) {
 		Scanner sc= new Scanner(System.in);
 		List<Player> playerlist = Game.getplayerlist();
@@ -44,6 +43,44 @@ public interface IHM {
 					
 					return player;
 				}
+			} 
+			else {
+				System.out.println("ERROR : select an existing player");
+			}
+		}while(!command);
+		
+		return null;
+	}
+	*/
+	
+	/**
+	 * Méthode permettant de selectionner un joueur via la console
+	 * @param players
+	 * List des joueurs séléctionnable
+	 * @return
+	 * Le joueur séléctionné
+	 */
+	public static Player newselectplayer(List<Player> players) {
+		Scanner sc= new Scanner(System.in);
+		if(players.size()==0) {
+			return null;
+		}
+		
+		//Listage des cartes
+		for(int i=0; i < players.size(); i++) {
+			Player player = players.get(i);
+			System.out.println(i + " : " + player);
+		}
+		
+		//Boucle pour choisir la cartes
+		boolean command = false;
+		do{
+			int nexti = sc.nextInt();
+			if(nexti <= players.size()) {
+				command = true;
+				Player player = players.get(nexti);
+					
+				return player;
 			} 
 			else {
 				System.out.println("ERROR : select an existing player");

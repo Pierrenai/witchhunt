@@ -21,7 +21,7 @@ public class TheInquisition extends Cards {
 
 	@Override
 	public boolean HuntSide(Player caster) {
-		Player target = IHM.selectplayer(caster, true);
+		Player target = IHM.newselectplayer(Game.playerlistnotreveal(caster));
 		
 		if(caster.isReveal() && caster.getIdentity()==CharacterType.VILLAGER) {
 			Game.setnextPlayer(target);

@@ -18,7 +18,7 @@ public class AngryMob extends Cards {
 
 	@Override
 	public boolean HuntSide(Player caster) {
-		Player target = IHM.selectplayer(caster, true);
+		Player target = IHM.newselectplayer(Game.playerlistnotreveal(caster));
 		List<Cards> targetcards = target.getCards();
 		Cards broomstickcard = super.getcardwithid(4);
 		

@@ -15,7 +15,7 @@ public class Broomstick extends Cards {
 
 	@Override
 	public boolean HuntSide(Player caster) {
-		Player target = IHM.selectplayer(caster, false);
+		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
 		
 		Game.setnextPlayer(target);
 		return true;
