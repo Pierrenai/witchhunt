@@ -15,6 +15,7 @@ import java.util.Scanner;
  */
 public class Game {
 	private static int nplayer = 0;
+	private static int nbot = 0;
 	private static List<Player> playerlist = new ArrayList<Player>();
 	private static List<Cards> cardslist = new ArrayList<Cards>();
 	private static Player nextPlayer = null;
@@ -35,8 +36,9 @@ public class Game {
 	 * 
 	 * Nombre de joueur
 	 */
-	public void startGame(int np) {
+	public void startGame(int np, int nb) {
 		nplayer = np;
+		nbot = nb;
 	    
 	    //Ici on créer les joueurs
 	    createPlayers();
@@ -51,10 +53,21 @@ public class Game {
 	 */
 	public static void createPlayers() {
 		if(playerlist.isEmpty()) {
-			for(int i=0; i < nplayer; i++) {
+			for(int i=0; i < nplayer - nbot; i++) {
 				
-		        //Ici on créer le joueur
-				Player player = new Player("Player n" + i); 
+		        //Ici on créer le joueur réel
+				Player player = new RealPlayer(IHM.namegetter()); 
+				playerlist.add(player);
+				
+				System.out.println(player.getName() + " successfully added.");
+				
+			
+			}
+			
+			for(int i=0; i < nbot; i++) {
+				
+		        //Ici on créer le joueur virtuel
+				Player player = new VirtualPlayer("Bot n°" + i); 
 				playerlist.add(player);
 				
 				System.out.println(player.getName() + " successfully added.");
@@ -227,29 +240,10 @@ public class Game {
 	 * Selectionner les identités de chacun en début de tour
 	 */
 	private static void selectidentities() {
-		Scanner sc= new Scanner(System.in);
-		
 		for(int i=0; i < playerlist.size(); i++) {
 			Player player = playerlist.get(i);
 			System.out.println(player + " a toi de choisir");
-			System.out.println("Tes cartes sont : " +  player.getCards());
-			System.out.println("Select between Witch : W or Villager : V");
-			
-			boolean command = false;
-			do{
-				String nexti = sc.nextLine();
-				if(nexti.matches("W")) {
-					command = true;
-					player.setIdentity(CharacterType.WITCH);
-				} 
-				if(nexti.matches("V")) {
-					command = true;
-					player.setIdentity(CharacterType.VILLAGER);
-				}
-				else {
-					System.out.println("ERROR : select an existing identity");
-				}
-			}while(!command);
+			player.selectIdentity();
 			
 			clearScreen();
 		}
@@ -280,6 +274,25 @@ public class Game {
 	
 	public static List<Player> getplayerlist(){
 		return playerlist;
+	}
+	
+	/**
+	 * Méthode permettant de récuperer le joueur n-1 dans la list des joueurs. Si le joueur est le premier de la list on récuperer le dernier joueur de la list
+	 * @param p
+	 * Le joueur à droite du joueur à gauche
+	 * @return
+	 * Le joueur à gauche de p
+	 */
+	public static Player getleftplayer(Player p){
+		Player leftplayer = null;
+		for(int i=0; i < playerlist.size(); i++) {
+			if(p==playerlist.get(i)) break;
+			leftplayer = playerlist.get(i);
+		}
+		
+		if(leftplayer==null) leftplayer = playerlist.get(playerlist.size());
+		
+		return leftplayer;
 	}
 	
 	public static List<Player> playerlistnotreveal(Player playertoexclude){

@@ -171,4 +171,11 @@ public interface IHM {
 		
 		return null;
 	}
+	
+	public static String namegetter() {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Nom du joueur :");
+		String name = sc.nextLine();
+		return name;
+	}
 }

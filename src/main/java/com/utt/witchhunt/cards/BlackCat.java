@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.Game;
+import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class BlackCat extends Cards {
@@ -13,32 +14,24 @@ public class BlackCat extends Cards {
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(caster);
+		this.setReveal();
 		return true;
 		
 	}
 
 	@Override
 	public boolean HuntSide(Player caster) {
-		List<Cards> cardslist = new ArrayList<Cards>();
-		cardslist= Game.getdiscardedcardlist();
-		cardslist.get(0);
-		cardslist.remove(0);
-		//cardslist.add(??); ajouter cette carte au discarded
-		Game.setnextPlayer(target);
-		return true;
-		
-		/*
-		List<Cards> cardslist = Game.getdiscardedcardlist();
-		if(cardslist.isEmpty()) return false;
-		//Ici faut rajouter le code pour choisir une carte
-		
-		caster.removeCard(this);
-		Game.adddiscardedCard(this);
-		
-		Game.setnextPlayer(caster);
-		
-		//Déso je n'ai pas m'en empecher
-		 */
+		List<Cards> discardedcardslist = Game.getdiscardedcardlist();
+
+		if(!discardedcardslist.isEmpty()) {
+			Cards ca = IHM.newselectcard(discardedcardslist);
+			caster.discardCard(this);
+			caster.addCard(ca);
+			Game.setnextPlayer(caster);
+			this.setReveal();
+			return true;
+		}
+		return false;
 		
 	}
 
