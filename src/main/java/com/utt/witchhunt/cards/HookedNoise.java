@@ -32,6 +32,7 @@ public class HookedNoise extends Cards {
 	        caster.addCard(randomElement);
 	        
 			Game.setnextPlayer(caster);
+			this.setReveal();
 			return true;
 		}
 		
@@ -61,6 +62,7 @@ public class HookedNoise extends Cards {
 	        caster.addCard(randomElement);
 	        
 			Game.setnextPlayer(target);
+			this.setReveal();
 			return true;
 		}
 		return false;		

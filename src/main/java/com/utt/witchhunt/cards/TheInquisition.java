@@ -15,7 +15,8 @@ public class TheInquisition extends Cards {
 	public boolean WitchSide(Player accuser, Player caster) {
 		Cards card = IHM.newselectcard(caster.getplayableCards());
 		caster.discardCard(card);
-		Game.setnextPlayer(caster);		
+		Game.setnextPlayer(caster);	
+		this.setReveal();
 		return true;
 	}
 
@@ -27,6 +28,7 @@ public class TheInquisition extends Cards {
 			Game.setnextPlayer(target);
 			System.out.println(caster + " see " + target + "identity");
 			System.out.println(target + " is " + target.getIdentity());
+			this.setReveal();
 			return true;
 		}
 		return false;

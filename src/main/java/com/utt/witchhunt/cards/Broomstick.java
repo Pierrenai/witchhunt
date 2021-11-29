@@ -10,6 +10,7 @@ public class Broomstick extends Cards {
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(caster);
+		this.setReveal();
 		return true;
 	}
 
@@ -18,6 +19,7 @@ public class Broomstick extends Cards {
 		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
 		
 		Game.setnextPlayer(target);
+		this.setReveal();
 		return true;
 	}
 

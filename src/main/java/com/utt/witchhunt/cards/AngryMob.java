@@ -13,6 +13,7 @@ public class AngryMob extends Cards {
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
 		Game.setnextPlayer(caster);
+		this.setReveal();
 		return true;
 	}
 
@@ -35,6 +36,7 @@ public class AngryMob extends Cards {
 			caster.removePoints(2);
 			Game.setnextPlayer(target);
 		}
+		this.setReveal();
 		return true;
 		}
 		return false;
