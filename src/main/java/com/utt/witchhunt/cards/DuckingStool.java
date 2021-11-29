@@ -7,50 +7,65 @@ import java.util.Scanner;
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.CharacterType;
 import com.utt.witchhunt.engines.Game;
+import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class DuckingStool extends Cards {
 
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
+		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
 		Game.setnextPlayer(target);
+		this.setReveal();
 		return true;
 		
 	}
 
 	@Override
-	public boolean HuntSide(Player accuser, Player caster) {
+	public boolean HuntSide(Player caster) {
 		
-		Scanner sc= new Scanner(System.in);
-		System.out.println(target+ "Press Y to reveal your identity | N to discard a card from your hand");
-		boolean command = false;
-		do{
-			String nexti = sc.nextLine();
-			if(nexti.matches("Y")) {
-				accuser.revealIdentity();	
-				if(accuser.getIdentity()==CharacterType.WITCH) { //Tu confond le caster et la target
-					caster.addPoints(1);
-					Game.setnextPlayer(caster);
-				}
-				if(accuser.getIdentity()==CharacterType.VILLAGER) { //La même ici
-					caster.removePoints(1);
-					Game.setnextPlayer(accuser);
-				}
-				command = true;
-				
-			}
-
-			if(nexti.matches("N")) {
-				Cards card = IHM.newselectcard(accuser.getplayableCards());
-				accuser.discardCard(card);
-				Game.setnextPlayer(accuser);		
-				command = true;
-			}
-			else {
-				System.out.println("ERROR : Press Y to reveal | N to not reveal");
-			}
-		}while(!command);
+		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
+		List<Cards> targetcards = target.getCards();
+		Cards wart = super.getcardwithid(5);
 		
+		boolean check = true;
+		if(targetcards.contains(wart) && wart.isReveal()) check = false;
+		
+		if(!target.isReveal()&& check) {
+			Scanner sc= new Scanner(System.in);
+			System.out.println(target+ "Press Y to reveal your identity | N to discard a card from your hand");
+			boolean command = false;
+			do{
+				String nexti = sc.nextLine();
+				if(nexti.matches("Y")) {
+					target.revealIdentity();	
+					if(target.getIdentity()==CharacterType.WITCH) { //Tu confond le caster et la target
+						caster.addPoints(1);
+						Game.setnextPlayer(caster);
+					}
+					if(target.getIdentity()==CharacterType.VILLAGER) { //La même ici
+						caster.removePoints(1);
+						Game.setnextPlayer(target);
+					}
+					command = true;
+					this.setReveal();
+					return true;
+					
+				}
+	
+				if(nexti.matches("N")) {
+					Cards card = IHM.newselectcard(target.getplayableCards());
+					target.discardCard(card);
+					Game.setnextPlayer(target);		
+					command = true;
+					this.setReveal();
+					return true;
+				}
+				else {
+					System.out.println("ERROR : Press Y to reveal | N to not reveal");
+				}
+			}while(!command);
+		}
 		
 		return false;
 		
