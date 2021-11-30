@@ -1,5 +1,6 @@
 package com.utt.witchhunt.engines;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,7 +64,6 @@ public class RealPlayer extends Player {
 				
 				if(card!=null && card.WitchSide(p, this)) command = true;
 				else System.out.println("ERROR : You can't do this");
-				System.out.println("Press Y to reveal | N to not reveal");
 			}
 			else {
 				System.out.println("ERROR : Press Y to reveal | N to not reveal");
@@ -102,6 +102,50 @@ public class RealPlayer extends Player {
 	@Override
 	public void accuser() {
 		Player accusee = IHM.newselectplayer(Game.playerlistnotreveal(this));
-		accusee.etreAccuse(this);
+		if(accusee!=null) accusee.etreAccuse(this);
+		else System.out.println(this + " ne pas accuser");
+	}
+
+
+	@Override
+	public void accuser(Player ppasaccusable) {
+		List<Player> playerlist = Game.playerlistnotreveal(this);
+		if(playerlist.contains(ppasaccusable)) playerlist.remove(ppasaccusable);
+		Player accusee = IHM.newselectplayer(playerlist);
+			
+		if(accusee!=null) accusee.etreAccuse(this);
+		if(accusee==null && !ppasaccusable.isReveal()) ppasaccusable.etreAccuse(ppasaccusable);
+		else {
+			System.out.println(this + " ne pas accuser personne");
+			Game.endTurn();
+		}
+	}
+
+
+	@Override
+	public void play() {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Command : accuse | play");
+		
+		boolean command = false;
+		do{
+			String nexti = sc.nextLine();
+			//Ici si on met accuse dans la command le joueur accuse
+			if(nexti.matches("accuse")) {
+				command = true;
+				this.accuser();
+			} 
+			//Ici command pour jouer une carte
+			if(nexti.matches("play")) {
+				if(this.playHuntCard()) {
+					command = true;
+					Game.endTurn();
+				} else System.out.println("ERROR : Can't do this");
+			} 
+			else {
+				System.out.println("ERROR : not recognize");
+			}
+		}while(!command);
+		
 	}
 }

@@ -9,4 +9,5 @@ public interface Strategy {
 	public boolean playHuntCard();
 	public void etreAccuse(Player p);
 	public void selectIdentity();
+	public boolean play(List<Cards> cards);
 }

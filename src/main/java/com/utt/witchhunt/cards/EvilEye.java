@@ -10,9 +10,8 @@ public class EvilEye extends Cards {
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
 		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
-		Game.setnextPlayer(target);
-		target.accuser(caster);//A CODER
 		this.setReveal();
+		target.accuser(caster);
 		return true;
 			
 	}
@@ -20,9 +19,8 @@ public class EvilEye extends Cards {
 	@Override
 	public boolean HuntSide(Player caster) {
 		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
-		Game.setnextPlayer(target);
-		target.accuser(caster);//A CODER
 		this.setReveal();
+		target.accuser(caster);
 		return true;
 		
 	}

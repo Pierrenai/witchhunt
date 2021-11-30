@@ -56,6 +56,11 @@ public abstract class Player {
 	}
 	
 	/**
+	 * Méthode permettant à un joueur de jouer
+	 */
+	public abstract void play();
+	
+	/**
 	 * Méthode permettant à un joueur de jouer une carte
 	 * 
 	 * @return

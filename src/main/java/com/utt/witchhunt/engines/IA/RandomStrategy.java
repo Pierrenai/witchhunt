@@ -9,13 +9,6 @@ import com.utt.witchhunt.engines.Player;
 public class RandomStrategy implements Strategy {
 
 	@Override
-	public boolean playHuntCard(List<Cards> cards) {
-		Random rand = new Random();
-		int i = rand.nextInt(getplayableCards());
-		return cards.get(i);
-	}
-
-	@Override
 	public void etreAccuse(Player p) {
 		// TODO Auto-generated method stub
 		
@@ -25,6 +18,21 @@ public class RandomStrategy implements Strategy {
 	public void selectIdentity() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean playHuntCard() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean play(List<Cards> cards) {
+		Random rand = new Random();
+		int i = rand.nextInt(1);
+		
+		if(i==0) return true;
+		else return false;
 	}
 
 }

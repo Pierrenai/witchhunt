@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.utt.witchhunt.engines.IA.RandomStrategy;
+import com.utt.witchhunt.engines.IA.Strategy;
+
 
 /**
  * 
@@ -65,9 +68,10 @@ public class Game {
 			}
 			
 			for(int i=0; i < nbot; i++) {
-				
 		        //Ici on créer le joueur virtuel
-				Player player = new VirtualPlayer("Bot n°" + i); 
+				Strategy rstrat = new RandomStrategy();
+				
+				Player player = new VirtualPlayer("Bot n°" + i, rstrat); 
 				playerlist.add(player);
 				
 				System.out.println(player.getName() + " successfully added.");
@@ -188,6 +192,14 @@ public class Game {
 	 * 
 	 */
 	public static void nextTurn() {
+		boolean onContinue = true;
+		while(onContinue) {
+			Scanner kbhit = new Scanner(System.in);
+			System.out.println("Touche c pour continuer");
+			String str = kbhit.next();  
+			onContinue=str.equals("c") ? false : true;
+		}
+		
 		clearScreen();
 		
 		//Si le premier joueur n'est pas défini c'est le premier joueur créer qui commence
@@ -197,30 +209,7 @@ public class Game {
 		
 		//Ici c'est autour de next player joueur de jouer
 		System.out.println("C'est le tour de " + nextPlayer);
-		System.out.println("Command : accuse | play");
-		
-		Scanner sc= new Scanner(System.in);
-		boolean command = false;
-		do{
-			String nexti = sc.nextLine();
-			//Ici si on met accuse dans la command le joueur accuse
-			if(nexti.matches("accuse")) {
-				command = true;
-				Player accusedplayer = IHM.newselectplayer(playerlistnotreveal(nextPlayer));
-				
-				accusedplayer.etreAccuse(nextPlayer);
-			} 
-			//Ici command pour jouer une carte
-			if(nexti.matches("play")) {
-				if(nextPlayer.playHuntCard()) {
-					command = true;
-					endTurn();
-				} else System.out.println("ERROR : Can't do this");
-			} 
-			else {
-				System.out.println("ERROR : not recognize");
-			}
-		}while(!command);
+		nextPlayer.play();
 	}
 	
 	public static void nextRound() {
