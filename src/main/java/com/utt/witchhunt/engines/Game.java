@@ -275,11 +275,11 @@ public class Game {
 	public static Player getleftplayer(Player p){
 		Player leftplayer = null;
 		for(int i=0; i < playerlist.size(); i++) {
-			if(p==playerlist.get(i)) break;
+			if(playerlist.get(i)==p) break;
 			leftplayer = playerlist.get(i);
 		}
 		
-		if(leftplayer==null) leftplayer = playerlist.get(playerlist.size());
+		if(leftplayer==null) leftplayer = playerlist.get(playerlist.size()-1);
 		
 		return leftplayer;
 	}

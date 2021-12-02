@@ -11,6 +11,59 @@ public class RealPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	@Override
+	public void play() {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Command : accuse | play");
+		
+		boolean command = false;
+		do{
+			String nexti = sc.nextLine();
+			//Ici si on met accuse dans la command le joueur accuse
+			if(nexti.matches("accuse")) {
+				command = true;
+				this.accuser();
+			} 
+			//Ici command pour jouer une carte
+			if(nexti.matches("play")) {
+																	//Utiliser un try catch ?
+				if(this.playHuntCard()) {
+					command = true;
+					Game.endTurn();
+				} else System.out.println("ERROR : Can't do this");
+			} 
+			else {
+				System.out.println("ERROR : not recognize");
+			}
+		}while(!command);
+		
+	}
+	
+	
+	@Override
+	public void accuser() {
+		Player accusee = selectplayer(Game.playerlistnotreveal(this));
+																	//Utiliser un try catch ?
+		if(accusee!=null) accusee.etreAccuse(this);
+		else System.out.println(this + " ne pas accuser");
+	}
+
+
+	@Override
+	public void accuser(Player ppasaccusable) {
+		List<Player> playerlist = Game.playerlistnotreveal(this);
+		if(playerlist.contains(ppasaccusable)) playerlist.remove(ppasaccusable);
+		Player accusee = selectplayer(playerlist);
+			
+		if(accusee!=null) accusee.etreAccuse(this);
+		if(accusee==null && !ppasaccusable.isReveal()) ppasaccusable.etreAccuse(ppasaccusable);
+		else {
+			System.out.println(this + " ne pas accuser personne");
+			Game.endTurn();
+		}
+	}
+	
 
 	@Override
 	/**
@@ -20,13 +73,14 @@ public class RealPlayer extends Player {
 	 * Si le joueur a pu jouer la carte
 	 */
 	public boolean playHuntCard() {
-		List<Cards> playablecards = this.getplayableCards();
-		
-		Cards card = selectcard(playablecards);
-		if(card==null) return false;
-
-		if(card.HuntSide(this)) return true;
+		List<Cards> playablecards = this.getplayableCards(CardType.HUNT);
+		if(!playablecards.isEmpty()) {
+			Cards card = selectcard(playablecards);
+			card.HuntSide(this);
+			return true;
+		}
 		else return false;
+
 	}
 	
 	
@@ -60,7 +114,7 @@ public class RealPlayer extends Player {
 			}
 			//Ici le joueur ne revele pas son identité et décide de jouer une carte Witch
 			if(nexti.matches("N")) {
-				Cards card = selectcard(getplayableCards());
+				Cards card = selectcard(getplayableCards(CardType.WITCH));
 				
 				if(card!=null && card.WitchSide(p, this)) command = true;
 				else System.out.println("ERROR : You can't do this");
@@ -97,57 +151,6 @@ public class RealPlayer extends Player {
 		}while(!command);
 		
 	}
-
-
-	@Override
-	public void accuser() {
-		Player accusee = selectplayer(Game.playerlistnotreveal(this));
-		if(accusee!=null) accusee.etreAccuse(this);
-		else System.out.println(this + " ne pas accuser");
-	}
-
-
-	@Override
-	public void accuser(Player ppasaccusable) {
-		List<Player> playerlist = Game.playerlistnotreveal(this);
-		if(playerlist.contains(ppasaccusable)) playerlist.remove(ppasaccusable);
-		Player accusee = selectplayer(playerlist);
-			
-		if(accusee!=null) accusee.etreAccuse(this);
-		if(accusee==null && !ppasaccusable.isReveal()) ppasaccusable.etreAccuse(ppasaccusable);
-		else {
-			System.out.println(this + " ne pas accuser personne");
-			Game.endTurn();
-		}
-	}
-
-
-	@Override
-	public void play() {
-		Scanner sc= new Scanner(System.in);
-		System.out.println("Command : accuse | play");
-		
-		boolean command = false;
-		do{
-			String nexti = sc.nextLine();
-			//Ici si on met accuse dans la command le joueur accuse
-			if(nexti.matches("accuse")) {
-				command = true;
-				this.accuser();
-			} 
-			//Ici command pour jouer une carte
-			if(nexti.matches("play")) {
-				if(this.playHuntCard()) {
-					command = true;
-					Game.endTurn();
-				} else System.out.println("ERROR : Can't do this");
-			} 
-			else {
-				System.out.println("ERROR : not recognize");
-			}
-		}while(!command);
-		
-	}
 	
 	@Override
 	public Player selectplayer(List<Player> players) {
@@ -156,13 +159,13 @@ public class RealPlayer extends Player {
 			return null;
 		}
 		
-		//Listage des cartes
+		//Listage des joueurs
 		for(int i=0; i < players.size(); i++) {
 			Player player = players.get(i);
 			System.out.println(i + " : " + player);
 		}
 		
-		//Boucle pour choisir la cartes
+		//Boucle pour choisir la joueurs
 		boolean command = false;
 		do{
 			int nexti = sc.nextInt();

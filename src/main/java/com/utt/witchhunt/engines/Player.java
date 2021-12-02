@@ -73,7 +73,7 @@ public abstract class Player{
 	 * @return
 	 * La list des cartes jouables
 	 */
-	public List<Cards> getplayableCards() {
+	public List<Cards> getplayableCards(CardType cardtype) {
 		List<Cards> notrevealcards = new ArrayList<Cards>();
 		for(int i=0; i < cards.size(); i++) {
 			if(!cards.get(i).isReveal()) {
