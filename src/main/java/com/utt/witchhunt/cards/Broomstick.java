@@ -22,4 +22,14 @@ public class Broomstick extends Cards {
 		return true;
 	}
 
+	@Override
+	public boolean Witchplayable(Player accuser, Player caster) {
+		return true;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		return true;
+	}
+
 }
