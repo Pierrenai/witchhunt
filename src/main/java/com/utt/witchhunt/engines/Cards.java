@@ -160,4 +160,6 @@ public abstract class Cards {
 	
 	public abstract boolean WitchSide(Player accuser, Player caster); //Accuser = celui qui accusé | Caster = celui qui se défend avec la carte witch
 	public abstract boolean HuntSide(Player caster); //Caster celui qui joue la carte
+	//public abstract boolean Witchplayable(Player caster); //Vérifie si la carte est jouable
+	//public abstract boolean Huntplayable(Player caster); //Vérifie si la carte est jouable
 }

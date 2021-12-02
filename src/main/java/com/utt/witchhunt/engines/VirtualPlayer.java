@@ -31,20 +31,22 @@ public class VirtualPlayer extends Player {
 
 	@Override
 	public boolean playHuntCard() {
-		if(this.strategy.playHuntCard()) return true;
+		if(this.strategy.playHuntCard(this.getCards())) return true;
 		else return false;
 	}
 
 	@Override
 	public void etreAccuse(Player p) {
-		// TODO Auto-generated method stub
+		boolean command = false;
+		do {
+			if(this.strategy.etreAccuse(p, this.getCards())) command = true;
+		}while(!command);
 		
 	}
 
 	@Override
 	public void selectIdentity() {
-		// TODO Auto-generated method stub
-		
+		this.setIdentity(this.strategy.selectIdentity());
 	}
 
 	@Override
@@ -61,5 +63,19 @@ public class VirtualPlayer extends Player {
 	
 	public void setStrategy(Strategy strat) {
 		this.strategy = strat;
+	}
+
+
+	@Override
+	public Player selectplayer(List<Player> players) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Cards selectcard(List<Cards> cards) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

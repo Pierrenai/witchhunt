@@ -7,7 +7,6 @@ import java.util.Random;
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.CharacterType;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class Cauldron extends Cards {
@@ -37,7 +36,7 @@ public class Cauldron extends Cards {
 			return true;
 		}
 		if(caster.getIdentity()==CharacterType.VILLAGER) {
-			Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
+			Player target = caster.selectplayer(Game.playerlistreveal(caster));
 			Game.setnextPlayer(target);
 			this.setReveal();
 			return true;

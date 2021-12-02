@@ -6,7 +6,6 @@ import java.util.Random;
 
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class HookedNoise extends Cards {
@@ -43,7 +42,7 @@ public class HookedNoise extends Cards {
 	public boolean HuntSide(Player caster) {
 		Random rand = new Random();
 		
-		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
+		Player target = caster.selectplayer(Game.playerlistreveal(caster));
 		
 		List<Cards> accusercards = target.getCards();
 		List<Cards> castercardsnotreveal = new ArrayList<Cards>();

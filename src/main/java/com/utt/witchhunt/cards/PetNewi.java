@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class PetNewi extends Cards {
@@ -37,12 +36,12 @@ public class PetNewi extends Cards {
 		}
 		if(!stealablecards.isEmpty()) {
 			System.out.println("What card you want steal ?");
-			Cards stealedcard = IHM.newselectcard(stealablecards);
+			Cards stealedcard = caster.selectcard(stealablecards);
 			
 			caster.addCard(stealedcard);
 			stealedplayer.removeCard(stealedcard);
 			
-			Game.setnextPlayer(IHM.newselectplayer(Game.playerlistreveal(caster)));
+			Game.setnextPlayer(caster.selectplayer(Game.playerlistreveal(caster)));
 			
 			this.setReveal();
 			return true;

@@ -7,14 +7,13 @@ import java.util.Scanner;
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.CharacterType;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class DuckingStool extends Cards {
 
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
-		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
+		Player target = caster.selectplayer(Game.playerlistreveal(caster));
 		Game.setnextPlayer(target);
 		this.setReveal();
 		return true;
@@ -24,7 +23,7 @@ public class DuckingStool extends Cards {
 	@Override
 	public boolean HuntSide(Player caster) {
 		
-		Player target = IHM.newselectplayer(Game.playerlistreveal(caster));
+		Player target = caster.selectplayer(Game.playerlistreveal(caster));
 		List<Cards> targetcards = target.getCards();
 		Cards wart = super.getcardwithid(5);
 		
@@ -54,7 +53,7 @@ public class DuckingStool extends Cards {
 				}
 	
 				if(nexti.matches("N")) {
-					Cards card = IHM.newselectcard(target.getplayableCards());
+					Cards card = caster.selectcard(target.getplayableCards());
 					target.discardCard(card);
 					Game.setnextPlayer(target);		
 					command = true;

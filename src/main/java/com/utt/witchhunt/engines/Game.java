@@ -59,7 +59,7 @@ public class Game {
 			for(int i=0; i < nplayer - nbot; i++) {
 				
 		        //Ici on créer le joueur réel
-				Player player = new RealPlayer(IHM.namegetter()); 
+				Player player = new RealPlayer(RealPlayer.namegetter()); 
 				playerlist.add(player);
 				
 				System.out.println(player.getName() + " successfully added.");

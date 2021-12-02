@@ -6,7 +6,6 @@ import java.util.Random;
 
 import com.utt.witchhunt.engines.Cards;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.IHM;
 import com.utt.witchhunt.engines.Player;
 
 public class BlackCat extends Cards {
@@ -24,7 +23,7 @@ public class BlackCat extends Cards {
 		List<Cards> discardedcardslist = Game.getdiscardedcardlist();
 
 		if(!discardedcardslist.isEmpty()) {
-			Cards ca = IHM.newselectcard(discardedcardslist);
+			Cards ca = caster.selectcard(discardedcardslist);
 			caster.discardCard(this);
 			caster.addCard(ca);
 			Game.setnextPlayer(caster);

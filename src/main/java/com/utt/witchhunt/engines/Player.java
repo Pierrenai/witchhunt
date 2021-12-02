@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Player {
+public abstract class Player{
 	private String name;
 	private int pts = 0;
 	private boolean reveal = false;
@@ -15,31 +15,64 @@ public abstract class Player {
 		this.name = n;
 	}
 	
+	/**
+	 * name getter
+	 * @return
+	 * name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Permet d'ajouter une carte au joueur
+	 * @param c
+	 * Carte à ajouter
+	 */
 	public void addCard(Cards c) {
 		this.cards.add(c);
 	}
 	
+	/**
+	 * Permet de supprimer une carte au joueur
+	 * @param c
+	 * Carte à supprimer
+	 */
 	public void removeCard(Cards c) {
 		this.cards.remove(c);
 	}
 	
+	/**
+	 * Permet de défausser une carte du joueur
+	 * @param c
+	 * Carte à défausser
+	 */
 	public void discardCard(Cards c) {
 		this.cards.remove(c);
 		Game.adddiscardedCard(c);
 	}
 	
+	/**
+	 * getter de la list des cartes du joueur
+	 * @return
+	 * List des cartes du joueur
+	 */
 	public List<Cards> getCards() {
 		return cards;
 	}
 	
+	/**
+	 * Permet de supprimer toutes les cartes d'un joueur
+	 */
 	public void clearCards() {
 		cards.clear();
 	}
 	
+	/**
+	 * Permet de récuperer la list des cartes non-révélés du joueur
+	 * @return
+	 * La list des cartes jouables
+	 */
 	public List<Cards> getplayableCards() {
 		List<Cards> notrevealcards = new ArrayList<Cards>();
 		for(int i=0; i < cards.size(); i++) {
@@ -94,6 +127,24 @@ public abstract class Player {
 	 * Méthode permettant au joueur de choisir son identité
 	 */
 	public abstract void selectIdentity();
+	
+	/**
+	 * Méthode pour choisir un joueur
+	 * @param players
+	 * List des joueurs choisissables
+	 * @return
+	 * Le joueur choisie
+	 */
+	public abstract Player selectplayer(List<Player> players);
+	
+	/**
+	 * Méthode pour choisir une carte
+	 * @param cards
+	 * List des cartes choisissables
+	 * @return
+	 * La carte choisie
+	 */
+	public abstract Cards selectcard(List<Cards> cards);
 	
 	/**
 	 * Getter de reveal
@@ -162,6 +213,9 @@ public abstract class Player {
 		System.out.println(this + " est " + identity);
 	}
 
+	/**
+	 * reveal setter
+	 */
 	public void setReveal(boolean reveal) {
 		this.reveal = reveal;
 	}
