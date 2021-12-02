@@ -51,4 +51,23 @@ public class PetNewi extends Cards {
 		
 	}
 
+	@Override
+	public boolean Witchplayable(Player caster) {
+		return true;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		List<Cards> stealablecards = new ArrayList<Cards>();
+		for(int i=0; i < Game.getplayerlist().size(); i++) {
+			for(int ii=0; ii < Game.getplayerlist().get(i).getCards().size(); ii++) {
+				if(Game.getplayerlist().get(i).getCards().get(ii).isReveal()) {
+					stealablecards.add(Game.getplayerlist().get(i).getCards().get(ii));
+				}
+			}
+		}
+		if(!stealablecards.isEmpty()) return true;
+		else return false;
+	}
+
 }

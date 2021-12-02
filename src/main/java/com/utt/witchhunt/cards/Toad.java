@@ -31,4 +31,15 @@ public class Toad extends Cards {
 		
 	}
 
+	@Override
+	public boolean Witchplayable(Player caster) {
+		return true;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		if(!caster.isReveal())return true;
+		else return false;
+	}
+
 }

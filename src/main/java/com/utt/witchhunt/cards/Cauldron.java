@@ -45,4 +45,17 @@ public class Cauldron extends Cards {
 		
 	}
 
+	@Override
+	public boolean Witchplayable(Player accuser, Player caster) {
+		List<Cards> accusercards = accuser.getCards();
+		if (!accusercards.isEmpty()) return true;
+		else return false;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		if (!caster.isReveal()) return true;
+		else return false;
+	}
+
 }

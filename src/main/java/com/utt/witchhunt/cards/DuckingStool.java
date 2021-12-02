@@ -70,4 +70,22 @@ public class DuckingStool extends Cards {
 		
 	}
 
+	@Override
+	public boolean Witchplayable(Player caster) {
+		return true;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		Cards wart = super.getcardwithid(5);
+		List <Player> listep = Game.playerlistnotreveal(caster);
+		for (int i=0; i<listep.size(); i++) {
+			if (listep.get(i).getCards().contains(wart)&& wart.isReveal()) {
+				listep.remove(i);
+			}
+		}
+		if (!listep.isEmpty()) return true;
+		else return false;
+	}
+
 }

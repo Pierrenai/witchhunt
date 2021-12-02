@@ -24,4 +24,14 @@ public class EvilEye extends Cards {
 		
 	}
 
+	@Override
+	public boolean Witchplayable(Player caster) {
+		return true;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		return true;
+	}
+
 }
