@@ -12,7 +12,11 @@ public class TheInquisition extends Cards {
 
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
-		Cards card = caster.selectcard(caster.getplayableCards());
+		List<Cards> clist = caster.getCards();
+		for(int i = 0; i < clist.size(); i++) {
+			if(clist.get(i).isReveal()) clist.remove(i);
+		}
+		Cards card = caster.selectcard(clist);
 		caster.discardCard(card);
 		Game.setnextPlayer(caster);	
 		this.setReveal();
@@ -31,6 +35,22 @@ public class TheInquisition extends Cards {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean Witchplayable(Player accuser, Player caster) {
+		List<Cards> clist = caster.getCards();
+		for(int i = 0; i < clist.size(); i++) {
+			if(clist.get(i).isReveal()) clist.remove(i);
+		}
+		if(!clist.isEmpty()) return true;
+		else return false;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		if(caster.isReveal() && caster.getIdentity()==CharacterType.VILLAGER) return true;
+		else return false;
 	}
 
 }

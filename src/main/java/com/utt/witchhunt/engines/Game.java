@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.utt.witchhunt.engines.IA.AccuseetRevele;
 import com.utt.witchhunt.engines.IA.RandomStrategy;
 import com.utt.witchhunt.engines.IA.Strategy;
 
@@ -69,9 +70,9 @@ public class Game {
 			
 			for(int i=0; i < nbot; i++) {
 		        //Ici on créer le joueur virtuel
-				Strategy rstrat = new RandomStrategy();
+				Strategy nul = new AccuseetRevele();
 				
-				Player player = new VirtualPlayer("Bot n°" + i, rstrat); 
+				Player player = new VirtualPlayer("Bot n°" + i, nul); 
 				playerlist.add(player);
 				
 				System.out.println(player.getName() + " successfully added.");

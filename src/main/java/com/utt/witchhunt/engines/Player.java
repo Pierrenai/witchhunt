@@ -9,10 +9,11 @@ public abstract class Player{
 	private int pts = 0;
 	private boolean reveal = false;
 	private CharacterType identity;
-	private List<Cards> cards = new ArrayList<Cards>();
+	private List<Cards> cards;
 
 	public Player(String n) {
 		this.name = n;
+		cards = new ArrayList<Cards>();
 	}
 	
 	/**

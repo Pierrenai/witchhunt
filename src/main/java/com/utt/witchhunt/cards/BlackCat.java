@@ -34,4 +34,15 @@ public class BlackCat extends Cards {
 		
 	}
 
+	@Override
+	public boolean Witchplayable(Player accuser, Player caster) {
+		return true;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		if(!Game.getdiscardedcardlist().isEmpty()) return true;
+		else return false;
+	}
+
 }

@@ -21,4 +21,14 @@ public class Wart extends Cards {
 		this.setReveal();
 		return true;
 	}
+	
+	@Override
+	public boolean Witchplayable(Player accuser, Player caster) {
+		return true;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		return true;
+	}
 }

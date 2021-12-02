@@ -15,32 +15,30 @@ public class VirtualPlayer extends Player {
 
 	
 	public void play() {
-		boolean command = false;
-		do{
-			boolean A = this.strategy.play(this.getCards());
-			if(A) {
-				if(this.playHuntCard()) command = true;
-			}
-			if(!A) {
-				command = true;
-				this.accuser();
-			}
-			
-		}while(!command);
+		if(this.strategy.play(this.getCards())) this.playHuntCard();
+		else this.accuser();
 	}
 
 	@Override
 	public boolean playHuntCard() {
-		if(this.strategy.playHuntCard(this.getCards())) return true;
-		else return false;
+		return false;
 	}
 
 	@Override
 	public void etreAccuse(Player p) {
-		boolean command = false;
-		do {
-			if(this.strategy.etreAccuse(p, this.getCards())) command = true;
-		}while(!command);
+		if(this.strategy.etreAccuse(p, this.getplayableCards(CardType.WITCH))) {
+			//Joue une carte witch on peut le faire plus tard
+		} else {
+			this.setReveal(true);
+			System.out.println(this + " est " + getIdentity());
+			if(this.getIdentity() == CharacterType.WITCH) {
+				p.addPoints(1);
+			}
+			
+			Game.setnextPlayer(this);
+		}
+		
+		Game.endTurn();
 		
 	}
 
@@ -51,13 +49,21 @@ public class VirtualPlayer extends Player {
 
 	@Override
 	public void accuser() {
-		// TODO Auto-generated method stub
-		
+		this.strategy.accuser(Game.playerlistnotreveal(this)).etreAccuse(this);
 	}
 
 	@Override
 	public void accuser(Player ppasaccusable) {
-		// TODO Auto-generated method stub
+		List<Player> playerlist = Game.playerlistnotreveal(this);
+		if(playerlist.contains(ppasaccusable)) playerlist.remove(ppasaccusable);
+		Player accusee = selectplayer(playerlist);
+			
+		if(accusee!=null) accusee.etreAccuse(this);
+		if(accusee==null && !ppasaccusable.isReveal()) ppasaccusable.etreAccuse(ppasaccusable);
+		else {
+			System.out.println(this + " ne pas accuser personne");
+			Game.endTurn();
+		}
 		
 	}
 	

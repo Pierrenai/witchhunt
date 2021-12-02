@@ -54,4 +54,24 @@ public class PointedHat extends Cards {
 		
 	}
 
+	@Override
+	public boolean Witchplayable(Player accuser, Player caster) {
+		List<Cards> castercards = caster.getCards();
+		for(int i=0; i < castercards.size(); i++) {
+			if(!castercards.get(i).isReveal()) castercards.remove(i);
+		}
+		if(!castercards.isEmpty()) return true;
+		else return false;
+	}
+
+	@Override
+	public boolean Huntplayable(Player caster) {
+		List<Cards> castercards = caster.getCards();
+		for(int i=0; i < castercards.size(); i++) {
+			if(!castercards.get(i).isReveal()) castercards.remove(i);
+		}
+		if(!castercards.isEmpty()) return true;
+		else return false;
+	}
+
 }

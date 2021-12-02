@@ -20,17 +20,21 @@ public class RandomStrategy implements Strategy {
 
 	@Override
 	public boolean play(List<Cards> cards) {
-		Random rand = new Random();
-		int i = rand.nextInt(1);
+		int i = 1;
+		
+		if(!cards.isEmpty()) {
+			Random rand = new Random();
+			i = rand.nextInt(1);
+		}
 		
 		if(i==0) return true;
 		else return false;
 	}
 
 	@Override
-	public boolean playHuntCard(List<Cards> cards) {
+	public Cards playHuntCard(List<Cards> cards) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -39,9 +43,28 @@ public class RandomStrategy implements Strategy {
 	}
 
 	@Override
-	public boolean accuser(List<Cards> playerlist) {
+	public Player accuser(List<Player> playerlist) {
+		Random rand = new Random();
+		int i = rand.nextInt(playerlist.size());
+		return playerlist.get(i);
+	}
+
+	@Override
+	public Cards playHuntWitch(List<Cards> cards) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
+	}
+
+	@Override
+	public Cards selectCards(List<Cards> cards) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Player selectPlayer(List<Player> list) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
