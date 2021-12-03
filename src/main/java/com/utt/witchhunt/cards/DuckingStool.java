@@ -53,12 +53,19 @@ public class DuckingStool extends Cards {
 				}
 	
 				if(nexti.matches("N")) {
-					Cards card = caster.selectcard(target.getplayableCards());
-					target.discardCard(card);
-					Game.setnextPlayer(target);		
-					command = true;
-					this.setReveal();
-					return true;
+					List<Cards> dcards = caster.getCards();
+					for(int i = 0; i< dcards.size(); i++) {
+						if(dcards.get(i).isReveal()) dcards.remove(i);
+					}
+					if(!dcards.isEmpty()) {
+						Cards card = caster.selectcard(dcards);
+						target.discardCard(card);
+						Game.setnextPlayer(target);		
+						command = true;
+						this.setReveal();
+						return true;
+					}
+				
 				}
 				else {
 					System.out.println("ERROR : Press Y to reveal | N to not reveal");
@@ -71,7 +78,7 @@ public class DuckingStool extends Cards {
 	}
 
 	@Override
-	public boolean Witchplayable(Player caster) {
+	public boolean Witchplayable(Player accuser, Player caster) {
 		return true;
 	}
 

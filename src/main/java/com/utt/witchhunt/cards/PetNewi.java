@@ -52,7 +52,7 @@ public class PetNewi extends Cards {
 	}
 
 	@Override
-	public boolean Witchplayable(Player caster) {
+	public boolean Witchplayable(Player accuser, Player caster) {
 		return true;
 	}
 
