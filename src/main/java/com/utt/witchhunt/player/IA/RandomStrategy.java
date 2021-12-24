@@ -1,11 +1,11 @@
-package com.utt.witchhunt.engines.IA;
+package com.utt.witchhunt.player.IA;
 
 import java.util.List;
 import java.util.Random;
 
-import com.utt.witchhunt.engines.Cards;
-import com.utt.witchhunt.engines.CharacterType;
-import com.utt.witchhunt.engines.Player;
+import com.utt.witchhunt.cards.Cards;
+import com.utt.witchhunt.player.CharacterType;
+import com.utt.witchhunt.player.Player;
 
 public class RandomStrategy implements Strategy {
 

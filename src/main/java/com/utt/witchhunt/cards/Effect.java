@@ -1,4 +1,6 @@
-package com.utt.witchhunt.engines;
+package com.utt.witchhunt.cards;
+
+import com.utt.witchhunt.player.Player;
 
 public abstract class Effect {
 

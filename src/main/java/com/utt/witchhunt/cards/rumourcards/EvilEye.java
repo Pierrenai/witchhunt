@@ -1,27 +1,29 @@
-package com.utt.witchhunt.cards;
+package com.utt.witchhunt.cards.rumourcards;
 
-import com.utt.witchhunt.engines.Cards;
+import com.utt.witchhunt.cards.Cards;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.Player;
+import com.utt.witchhunt.player.Player;
 
-public class Wart extends Cards {
+public class EvilEye extends Cards {
 
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
-		Game.setnextPlayer(caster);
+		Player target = caster.selectplayer(Game.playerlistreveal(caster));
 		this.setReveal();
+		target.accuser(caster);
 		return true;
+			
 	}
 
 	@Override
 	public boolean HuntSide(Player caster) {
 		Player target = caster.selectplayer(Game.playerlistreveal(caster));
-		
-		Game.setnextPlayer(target);
 		this.setReveal();
+		target.accuser(caster);
 		return true;
+		
 	}
-	
+
 	@Override
 	public boolean Witchplayable(Player accuser, Player caster) {
 		return true;
@@ -31,4 +33,5 @@ public class Wart extends Cards {
 	public boolean Huntplayable(Player caster) {
 		return true;
 	}
+
 }

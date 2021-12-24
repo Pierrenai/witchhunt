@@ -1,11 +1,11 @@
 
-package com.utt.witchhunt.engines.IA;
+package com.utt.witchhunt.player.IA;
 
 import java.util.List;
 
-import com.utt.witchhunt.engines.Cards;
-import com.utt.witchhunt.engines.CharacterType;
-import com.utt.witchhunt.engines.Player;
+import com.utt.witchhunt.cards.Cards;
+import com.utt.witchhunt.player.CharacterType;
+import com.utt.witchhunt.player.Player;
 
 public interface Strategy {
 	public Cards playHuntCard(List<Cards> cards);

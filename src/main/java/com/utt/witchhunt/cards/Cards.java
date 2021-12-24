@@ -1,20 +1,21 @@
-package com.utt.witchhunt.engines;
+package com.utt.witchhunt.cards;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.utt.witchhunt.cards.AngryMob;
-import com.utt.witchhunt.cards.BlackCat;
-import com.utt.witchhunt.cards.Broomstick;
-import com.utt.witchhunt.cards.Cauldron;
-import com.utt.witchhunt.cards.DuckingStool;
-import com.utt.witchhunt.cards.EvilEye;
-import com.utt.witchhunt.cards.HookedNoise;
-import com.utt.witchhunt.cards.PetNewi;
-import com.utt.witchhunt.cards.PointedHat;
-import com.utt.witchhunt.cards.TheInquisition;
-import com.utt.witchhunt.cards.Toad;
-import com.utt.witchhunt.cards.Wart;
+import com.utt.witchhunt.cards.rumourcards.AngryMob;
+import com.utt.witchhunt.cards.rumourcards.BlackCat;
+import com.utt.witchhunt.cards.rumourcards.Broomstick;
+import com.utt.witchhunt.cards.rumourcards.Cauldron;
+import com.utt.witchhunt.cards.rumourcards.DuckingStool;
+import com.utt.witchhunt.cards.rumourcards.EvilEye;
+import com.utt.witchhunt.cards.rumourcards.HookedNoise;
+import com.utt.witchhunt.cards.rumourcards.PetNewi;
+import com.utt.witchhunt.cards.rumourcards.PointedHat;
+import com.utt.witchhunt.cards.rumourcards.TheInquisition;
+import com.utt.witchhunt.cards.rumourcards.Toad;
+import com.utt.witchhunt.cards.rumourcards.Wart;
+import com.utt.witchhunt.player.Player;
 
 public abstract class Cards {
 	private boolean reveal = false;

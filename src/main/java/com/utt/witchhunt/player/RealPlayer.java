@@ -1,8 +1,12 @@
-package com.utt.witchhunt.engines;
+package com.utt.witchhunt.player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import com.utt.witchhunt.cards.CardType;
+import com.utt.witchhunt.cards.Cards;
+import com.utt.witchhunt.engines.Game;
 
 public class RealPlayer extends Player {
 

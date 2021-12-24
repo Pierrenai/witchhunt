@@ -1,13 +1,13 @@
-package com.utt.witchhunt.cards;
+package com.utt.witchhunt.cards.rumourcards;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.utt.witchhunt.engines.Cards;
-import com.utt.witchhunt.engines.CharacterType;
+import com.utt.witchhunt.cards.Cards;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.Player;
+import com.utt.witchhunt.player.CharacterType;
+import com.utt.witchhunt.player.Player;
 
 public class Cauldron extends Cards {
 

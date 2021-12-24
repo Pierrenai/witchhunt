@@ -1,9 +1,12 @@
-package com.utt.witchhunt.engines;
+package com.utt.witchhunt.player;
 
 import java.util.List;
 import java.util.Random;
 
-import com.utt.witchhunt.engines.IA.Strategy;
+import com.utt.witchhunt.cards.CardType;
+import com.utt.witchhunt.cards.Cards;
+import com.utt.witchhunt.engines.Game;
+import com.utt.witchhunt.player.IA.Strategy;
 
 public class VirtualPlayer extends Player {
 	private Strategy strategy;

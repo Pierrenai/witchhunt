@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.utt.witchhunt.engines.IA.AccuseetRevele;
-import com.utt.witchhunt.engines.IA.RandomStrategy;
-import com.utt.witchhunt.engines.IA.Strategy;
+import com.utt.witchhunt.cards.Cards;
+import com.utt.witchhunt.player.CharacterType;
+import com.utt.witchhunt.player.Player;
+import com.utt.witchhunt.player.RealPlayer;
+import com.utt.witchhunt.player.VirtualPlayer;
+import com.utt.witchhunt.player.IA.AccuseetRevele;
+import com.utt.witchhunt.player.IA.RandomStrategy;
+import com.utt.witchhunt.player.IA.Strategy;
 
 
 /**
@@ -30,8 +35,7 @@ public class Game {
 		if(instance==null) new Game();
 		return instance; }
 	
-	private Game() {
-	}
+	private Game() {}
 	
 	/**
 	 * Permet de lancer la partie
@@ -167,8 +171,6 @@ public class Game {
 		if(roundwinner!=null && roundwinner.getIdentity()==CharacterType.WITCH) roundwinner.addPoints(2); 
 		if(roundwinner!=null && roundwinner.getIdentity()==CharacterType.VILLAGER) roundwinner.addPoints(1); 
 		
-		checkPts();
-		
 		for(int i=0; i < playerlist.size(); i++) {
 			if(playerlist.get(i).getPoints()>=5) {
 				bigwinner = playerlist.get(i);
@@ -193,16 +195,6 @@ public class Game {
 	 * 
 	 */
 	public static void nextTurn() {
-		boolean onContinue = true;
-		while(onContinue) {
-			Scanner kbhit = new Scanner(System.in);
-			System.out.println("Touche c pour continuer");
-			String str = kbhit.next();  
-			onContinue=str.equals("c") ? false : true;
-		}
-		
-		clearScreen();
-		
 		//Si le premier joueur n'est pas défini c'est le premier joueur créer qui commence
 		if(nextPlayer == null) {
 			nextPlayer = playerlist.get(0);
@@ -219,9 +211,7 @@ public class Game {
 		//On distribu les cartes au début du round
 		distributeCards();
 		//Selection des rôles
-		selectidentities();	
-		//Ici on met les pts
-		checkPts();
+		selectidentities();
 		//Debut tour
 		nextTurn();
 	}
@@ -234,16 +224,7 @@ public class Game {
 			Player player = playerlist.get(i);
 			System.out.println(player + " a toi de choisir");
 			player.selectIdentity();
-			
-			clearScreen();
 		}
-	}
-	
-	/**
-	 * Saute 50 ligne dans la console pour ne plus voir les joueurs d'avant
-	 */
-	public static void clearScreen() {  
-		for (int i = 0; i < 50; ++i) System.out.println();
 	}
 	
 	public static void removeAllCards() {  
@@ -251,15 +232,6 @@ public class Game {
 			playerlist.get(i).clearCards();
 		}
 		cardslist.clear();
-	}
-	
-	/**
-	 * Permet de montrer les points de touts les joueurs
-	 */
-	public static void checkPts() {
-		for(int i=0; i < playerlist.size(); i++) {
-			System.out.println(playerlist.get(i) + " a " + playerlist.get(i).getPoints() + " pts");
-		}
 	}
 	
 	public static List<Player> getplayerlist(){

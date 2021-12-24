@@ -1,10 +1,10 @@
-package com.utt.witchhunt.cards;
+package com.utt.witchhunt.cards.rumourcards;
 
-import com.utt.witchhunt.engines.Cards;
+import com.utt.witchhunt.cards.Cards;
 import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.engines.Player;
+import com.utt.witchhunt.player.Player;
 
-public class Broomstick extends Cards {
+public class Wart extends Cards {
 
 	@Override
 	public boolean WitchSide(Player accuser, Player caster) {
@@ -21,7 +21,7 @@ public class Broomstick extends Cards {
 		this.setReveal();
 		return true;
 	}
-
+	
 	@Override
 	public boolean Witchplayable(Player accuser, Player caster) {
 		return true;
@@ -31,5 +31,4 @@ public class Broomstick extends Cards {
 	public boolean Huntplayable(Player caster) {
 		return true;
 	}
-
 }
