@@ -3,9 +3,9 @@ package com.utt.witchhunt.player.IA;
 
 import java.util.List;
 
-import com.utt.witchhunt.cards.Cards;
-import com.utt.witchhunt.player.CharacterType;
-import com.utt.witchhunt.player.Player;
+import com.utt.witchhunt.Modele.Cards;
+import com.utt.witchhunt.Modele.CharacterType;
+import com.utt.witchhunt.Modele.Player;
 
 public interface Strategy {
 	public Cards playHuntCard(List<Cards> cards);

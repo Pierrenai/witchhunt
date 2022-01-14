@@ -1,4 +1,4 @@
-com.utt.witchhunt
-com.utt.witchhunt.cards
-com.utt.witchhunt.engines
-com.utt.witchhunt.engines.effects
+com.utt.witchhunt.Controleur
+com.utt.witchhunt.Modele
+com.utt.witchhunt.player.IA
+com.utt.witchhunt.Vue

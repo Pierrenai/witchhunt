@@ -1,9 +1,9 @@
 package com.utt.witchhunt.cards.rumourcards;
 
-import com.utt.witchhunt.cards.Cards;
-import com.utt.witchhunt.engines.Game;
-import com.utt.witchhunt.player.CharacterType;
-import com.utt.witchhunt.player.Player;
+import com.utt.witchhunt.Modele.Cards;
+import com.utt.witchhunt.Modele.CharacterType;
+import com.utt.witchhunt.Modele.Game;
+import com.utt.witchhunt.Modele.Player;
 
 public class Toad extends Cards {
 

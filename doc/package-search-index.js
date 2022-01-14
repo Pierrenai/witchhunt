@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.utt.witchhunt.cards"},{"l":"com.utt.witchhunt.engines"},{"l":"com.utt.witchhunt.engines.effects"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.utt.witchhunt.Controleur"},{"l":"com.utt.witchhunt.player.IA"},{"l":"com.utt.witchhunt.Vue"}];updateSearchResults();
